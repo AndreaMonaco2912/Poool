@@ -3367,7 +3367,7 @@ controlflow {
 </UML:Property>
 <UML:Property id="a3a8e5c0-26f0-11f1-b7ec-e1dc6fffddd4">
 <aggregation>
-<val>composite</val>
+<val>shared</val>
 </aggregation>
 <association>
 <ref refid="a3a8abe2-26f0-11f1-9ec3-e1dc6fffddd4"/>
@@ -3511,7 +3511,7 @@ controlflow {
 </UML:Property>
 <UML:Property id="0e7de7bf-26f1-11f1-ad64-e1dc6fffddd4">
 <aggregation>
-<val>composite</val>
+<val>shared</val>
 </aggregation>
 <association>
 <ref refid="0e7dacd3-26f1-11f1-80c7-e1dc6fffddd4"/>
@@ -3750,7 +3750,7 @@ controlflow {
 </UML:Property>
 <UML:Property id="db96af53-26f1-11f1-9594-e1dc6fffddd4">
 <aggregation>
-<val>composite</val>
+<val>shared</val>
 </aggregation>
 <association>
 <ref refid="db967796-26f1-11f1-9fd9-e1dc6fffddd4"/>
@@ -3891,7 +3891,7 @@ controlflow {
 <ref refid="29178620-26f2-11f1-a0f9-e1dc6fffddd4"/>
 </tail_subject>
 <matrix>
-<val>(1.0, 0.0, 0.0, 1.0, 785.1071166992188, 423.1802062988281)</val>
+<val>(1.0, 0.0, 0.0, 1.0, 785.1071166992186, 423.1802062988281)</val>
 </matrix>
 <points>
 <val>[(-0.07391357421875, 6.585540771484375), (-0.07391357421875, 140.1657934570312)]</val>
@@ -3940,7 +3940,7 @@ controlflow {
 </UML:Property>
 <UML:Property id="29178620-26f2-11f1-a0f9-e1dc6fffddd4">
 <aggregation>
-<val>composite</val>
+<val>shared</val>
 </aggregation>
 <association>
 <ref refid="29174dac-26f2-11f1-b921-e1dc6fffddd4"/>
@@ -4069,7 +4069,7 @@ controlflow {
 <ref refid="38925d39-26f4-11f1-adb7-e1dc6fffddd4"/>
 </tail_subject>
 <matrix>
-<val>(1.0, 0.0, 0.0, 1.0, 785.675388183594, 426.6918640136719)</val>
+<val>(1.0, 0.0, 0.0, 1.0, 785.6753881835939, 426.6918640136719)</val>
 </matrix>
 <points>
 <val>[(136.4521447753906, 3.073883056640625), (136.45214477539048, 80.41920776367186), (252.22275695047267, 80.41920776367186), (252.22275695047267, 158.81045532226562)]</val>
@@ -4118,7 +4118,7 @@ controlflow {
 </UML:Property>
 <UML:Property id="38925d39-26f4-11f1-adb7-e1dc6fffddd4">
 <aggregation>
-<val>composite</val>
+<val>shared</val>
 </aggregation>
 <association>
 <ref refid="38922557-26f4-11f1-841b-e1dc6fffddd4"/>
@@ -4261,7 +4261,7 @@ controlflow {
 </UML:Property>
 <UML:Property id="c6c3981e-26f4-11f1-9985-e1dc6fffddd4">
 <aggregation>
-<val>composite</val>
+<val>shared</val>
 </aggregation>
 <association>
 <ref refid="c6c35e60-26f4-11f1-8134-e1dc6fffddd4"/>
@@ -4342,7 +4342,7 @@ controlflow {
 </UML:Property>
 <UML:Property id="05eeefa2-26f5-11f1-80ee-e1dc6fffddd4">
 <aggregation>
-<val>composite</val>
+<val>shared</val>
 </aggregation>
 <association>
 <ref refid="05eeb715-26f5-11f1-a2ba-e1dc6fffddd4"/>
@@ -4931,7 +4931,7 @@ Set speed and set position Must be atomical.</val>
 </UML:Property>
 <UML:Property id="0cfa3086-26f9-11f1-8958-e1dc6fffddd4">
 <aggregation>
-<val>composite</val>
+<val>shared</val>
 </aggregation>
 <association>
 <ref refid="0cf9f51e-26f9-11f1-9a3d-e1dc6fffddd4"/>
@@ -5012,7 +5012,7 @@ Set speed and set position Must be atomical.</val>
 </UML:Property>
 <UML:Property id="1297cff5-26f9-11f1-b271-e1dc6fffddd4">
 <aggregation>
-<val>composite</val>
+<val>shared</val>
 </aggregation>
 <association>
 <ref refid="12979854-26f9-11f1-bbf0-e1dc6fffddd4"/>
