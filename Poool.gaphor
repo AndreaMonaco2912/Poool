@@ -3140,16 +3140,16 @@ controlflow {
 <ref refid="629b947f-26f2-11f1-ac0e-e1dc6fffddd4"/>
 <ref refid="c04b3aec-26f3-11f1-adc6-e1dc6fffddd4"/>
 <ref refid="38922557-26f4-11f1-841b-e1dc6fffddd4"/>
-<ref refid="4f0eb3a2-26f4-11f1-9b5e-e1dc6fffddd4"/>
 <ref refid="c6c35e60-26f4-11f1-8134-e1dc6fffddd4"/>
 <ref refid="05eeb715-26f5-11f1-a2ba-e1dc6fffddd4"/>
-<ref refid="1ac3670f-26f5-11f1-84fe-e1dc6fffddd4"/>
 <ref refid="50fef4e7-26f7-11f1-bbfa-e1dc6fffddd4"/>
 <ref refid="5aaef511-26f7-11f1-819c-e1dc6fffddd4"/>
 <ref refid="600bd0b3-26f7-11f1-b14e-e1dc6fffddd4"/>
 <ref refid="fe61e7c5-26f8-11f1-b2b6-e1dc6fffddd4"/>
 <ref refid="0cf9f51e-26f9-11f1-9a3d-e1dc6fffddd4"/>
 <ref refid="12979854-26f9-11f1-bbf0-e1dc6fffddd4"/>
+<ref refid="4f0eb3a2-26f4-11f1-9b5e-e1dc6fffddd4"/>
+<ref refid="1ac3670f-26f5-11f1-84fe-e1dc6fffddd4"/>
 </reflist>
 </packagedElement>
 </UML:Package>
@@ -4361,6 +4361,9 @@ controlflow {
 <horizontal>
 <val>False</val>
 </horizontal>
+<orthogonal>
+<val>False</val>
+</orthogonal>
 <subject>
 <ref refid="1ac3670f-26f5-11f1-84fe-e1dc6fffddd4"/>
 </subject>
@@ -5024,8 +5027,8 @@ Set speed and set position Must be atomical.</val>
 <UML:InterfaceRealization id="189bb671-26f9-11f1-a7b5-e1dc6fffddd4">
 <client>
 <reflist>
-<ref refid="fe61e7c5-26f8-11f1-b2b6-e1dc6fffddd4"/>
 <ref refid="50fef4e7-26f7-11f1-bbfa-e1dc6fffddd4"/>
+<ref refid="fe61e7c5-26f8-11f1-b2b6-e1dc6fffddd4"/>
 </reflist>
 </client>
 <contract>
@@ -5041,16 +5044,16 @@ Set speed and set position Must be atomical.</val>
 </presentation>
 <supplier>
 <reflist>
-<ref refid="fe61e7c5-26f8-11f1-b2b6-e1dc6fffddd4"/>
 <ref refid="50fef4e7-26f7-11f1-bbfa-e1dc6fffddd4"/>
+<ref refid="fe61e7c5-26f8-11f1-b2b6-e1dc6fffddd4"/>
 </reflist>
 </supplier>
 </UML:InterfaceRealization>
 <UML:InterfaceRealization id="1acd8efa-26f9-11f1-83a1-e1dc6fffddd4">
 <client>
 <reflist>
-<ref refid="fe61e7c5-26f8-11f1-b2b6-e1dc6fffddd4"/>
 <ref refid="5aaef511-26f7-11f1-819c-e1dc6fffddd4"/>
+<ref refid="fe61e7c5-26f8-11f1-b2b6-e1dc6fffddd4"/>
 </reflist>
 </client>
 <contract>
@@ -5066,16 +5069,16 @@ Set speed and set position Must be atomical.</val>
 </presentation>
 <supplier>
 <reflist>
-<ref refid="fe61e7c5-26f8-11f1-b2b6-e1dc6fffddd4"/>
 <ref refid="5aaef511-26f7-11f1-819c-e1dc6fffddd4"/>
+<ref refid="fe61e7c5-26f8-11f1-b2b6-e1dc6fffddd4"/>
 </reflist>
 </supplier>
 </UML:InterfaceRealization>
 <UML:InterfaceRealization id="1cf51d6b-26f9-11f1-9fe3-e1dc6fffddd4">
 <client>
 <reflist>
-<ref refid="fe61e7c5-26f8-11f1-b2b6-e1dc6fffddd4"/>
 <ref refid="600bd0b3-26f7-11f1-b14e-e1dc6fffddd4"/>
+<ref refid="fe61e7c5-26f8-11f1-b2b6-e1dc6fffddd4"/>
 </reflist>
 </client>
 <contract>
@@ -5091,8 +5094,8 @@ Set speed and set position Must be atomical.</val>
 </presentation>
 <supplier>
 <reflist>
-<ref refid="fe61e7c5-26f8-11f1-b2b6-e1dc6fffddd4"/>
 <ref refid="600bd0b3-26f7-11f1-b14e-e1dc6fffddd4"/>
+<ref refid="fe61e7c5-26f8-11f1-b2b6-e1dc6fffddd4"/>
 </reflist>
 </supplier>
 </UML:InterfaceRealization>
@@ -5179,7 +5182,7 @@ Movement</val>
 </UML:CommentItem>
 <UML:Comment id="12b61125-26fb-11f1-91c2-e1dc6fffddd4">
 <body>
-<val>Check and Act on position and Speed is never a problem. Assign an objet to a variable in java is atomical. 
+<val>Assign an objet to a variable in java is atomical. 
 
 CollisionResolver can't start before the BallMover.getMove() on every balls: Ball hit wall, collider give ball new speed, update move was already applied, get move give movent toward the wall, the ball go outside the map.
 
