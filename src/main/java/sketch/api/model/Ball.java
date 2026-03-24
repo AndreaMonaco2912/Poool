@@ -1,7 +1,7 @@
-package sketch01.api.model;
+package sketch.api.model;
 
-import sketch01.impl.model.util.Position;
-import sketch01.impl.model.util.Vector;
+import sketch.impl.model.util.Position;
+import sketch.impl.model.util.Vector;
 
 public interface Ball {
 

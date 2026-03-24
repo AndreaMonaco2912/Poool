@@ -1,4 +1,4 @@
-package sketch01.impl.model.util;
+package sketch.impl.model.util;
 
 public record Vector(double x, double y) {
 }

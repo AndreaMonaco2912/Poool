@@ -1,4 +1,4 @@
-package sketch01;
+package sketch;
 
 public class Sketch01 {
     static void main() {

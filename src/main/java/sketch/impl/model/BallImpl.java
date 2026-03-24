@@ -1,8 +1,8 @@
-package sketch01.impl.model;
+package sketch.impl.model;
 
-import sketch01.api.model.Ball;
-import sketch01.impl.model.util.Position;
-import sketch01.impl.model.util.Vector;
+import sketch.api.model.Ball;
+import sketch.impl.model.util.Position;
+import sketch.impl.model.util.Vector;
 
 import java.util.Objects;
 
