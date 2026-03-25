@@ -35,8 +35,6 @@ public class PlayerBallMoverTest {
         playerBallMover = new PlayerBallMoverImpl();
         playerBallMover.signalMovement();
         playerBallMover.addNextMove(this.nextMove.copy());
-
-
     }
 
     @Test
