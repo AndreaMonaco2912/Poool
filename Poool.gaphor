@@ -3177,6 +3177,7 @@ controlflow {
 <ref refid="12b61592-26fb-11f1-a0fd-e1dc6fffddd4"/>
 <ref refid="01fd6cba-26fd-11f1-9fe7-e1dc6fffddd4"/>
 <ref refid="3edca7e8-2843-11f1-b54f-5d0f6dd5fa98"/>
+<ref refid="1c114f3a-2857-11f1-9b5a-27fda8982b7a"/>
 <ref refid="a12fdc80-26f0-11f1-b8cf-e1dc6fffddd4"/>
 <ref refid="0b81f396-26f1-11f1-b92d-e1dc6fffddd4"/>
 <ref refid="411924a6-26f1-11f1-92a8-e1dc6fffddd4"/>
@@ -5164,6 +5165,40 @@ Input taken -&gt; updateBall&amp;InputFreed -&gt; Collisions.</val>
 </diagram>
 <subject>
 <ref refid="3edca366-2843-11f1-b28c-5d0f6dd5fa98"/>
+</subject>
+</UML:CommentItem>
+<UML:Comment id="1c1149ed-2857-11f1-a67f-27fda8982b7a">
+<body>
+<val>CORSA CRITICA  DA RAGIONARE:
+
+resolveCollision(A, B) con resolve collision(B, A) -&gt; soluzione non fare la seconda
+
+resolveCollision(A, B) con resolveCollision(A, C).</val>
+</body>
+<presentation>
+<reflist>
+<ref refid="1c114f3a-2857-11f1-9b5a-27fda8982b7a"/>
+</reflist>
+</presentation>
+</UML:Comment>
+<UML:CommentItem id="1c114f3a-2857-11f1-9b5a-27fda8982b7a">
+<matrix>
+<val>(1.0, 0.0, 0.0, 1.0, 72.29753875732422, 308.59210205078125)</val>
+</matrix>
+<top-left>
+<val>(0.0, 0.0)</val>
+</top-left>
+<width>
+<val>154.0</val>
+</width>
+<height>
+<val>229.0</val>
+</height>
+<diagram>
+<ref refid="f6b56593-26ef-11f1-a495-e1dc6fffddd4"/>
+</diagram>
+<subject>
+<ref refid="1c1149ed-2857-11f1-a67f-27fda8982b7a"/>
 </subject>
 </UML:CommentItem>
 </model>
