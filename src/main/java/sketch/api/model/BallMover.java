@@ -2,6 +2,9 @@ package sketch.api.model;
 
 import sketch.impl.model.util.Vector;
 
+/**
+ * It gives to the Ball the next Move to do, accordingly game rules and BallMovement
+ */
 public interface BallMover {
 
     /**

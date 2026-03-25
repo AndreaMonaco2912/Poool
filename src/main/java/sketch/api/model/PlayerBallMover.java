@@ -11,7 +11,8 @@ public interface PlayerBallMover extends BallMover {
     /**
      * Add this move as the next if from the last move 2 seconds have elapsed
      * and the ball is stopped
-     * @param nextMove to be done
+     *
+     * @param nextMove to be done, it can become null
      */
     void addNextMove(Vector nextMove);
 }
