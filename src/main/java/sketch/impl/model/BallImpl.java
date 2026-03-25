@@ -1,6 +1,7 @@
 package sketch.impl.model;
 
 import sketch.api.model.Ball;
+import sketch.api.model.BallMover;
 import sketch.impl.model.util.Position;
 import sketch.impl.model.util.Vector;
 
@@ -9,23 +10,43 @@ import java.util.Objects;
 public class BallImpl implements Ball {
     private final double radius;
     private final double mass;
-    private final Object ballMover;
+    private final BallMover ballMover;
 
     private Position position;
     private Vector speed;
 
-    public BallImpl(double radius, double mass, Object o) {
+    public BallImpl(double radius, double mass, BallMover ballMover) {
         this.radius = radius;
         this.mass = mass;
-        this.ballMover = o;
+        this.ballMover = ballMover;
     }
 
     @Override
     public void updateState(long deltaTime) {
-        if (Objects.nonNull(ballMover)) {
-            IO.println("Hallo"); //TODO: apply movement
+        double timeInSeconds = deltaTime * 0.001;
+        applyMovement();
+        applyFriction(timeInSeconds);
+        this.position = this.position.sum(this.speed.mul(timeInSeconds));
+    }
+
+    private void applyMovement() {
+        if (Objects.nonNull(ballMover.getNextMove())) {
+            this.speed = ballMover.getNextMove();
         }
-        position = new Position(position.x() + speed.x(), position.y() + speed.y()); //TODO: fix formula
+    }
+
+    private void applyFriction(double timeInSeconds) {
+        final double frictionFactor = 0.25;
+        final double minimalNonZeroSpeed = 0.001;
+        double speedModule = this.speed.getNorm();
+
+        if (speedModule > minimalNonZeroSpeed) {
+            double dec = frictionFactor * timeInSeconds;
+            double factor = Math.max(0, speedModule - dec) / speedModule;
+            this.speed = this.speed.mul(factor);
+        } else {
+            this.speed = Vector.zero();
+        }
     }
 
     @Override
