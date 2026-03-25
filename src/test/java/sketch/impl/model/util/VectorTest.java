@@ -6,12 +6,12 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class VectorTest {
-    static final double X = 4.0;
-    static final int Y = 2;
-    Vector vector;
+    private static final double X = 4.0;
+    private static final int Y = 3;
+    private Vector vector;
 
     @BeforeEach
-    void init() {
+    public void init() {
         this.vector = new Vector(X, Y);
     }
 
@@ -19,5 +19,17 @@ public class VectorTest {
     public void testVectorGet() {
         assertEquals(X, vector.x());
         assertEquals(Y, vector.y());
+    }
+
+    @Test
+    public void testNorm() {
+        final int expectedNorm = 5; // euclidean norm in 2 dimension
+        assertEquals(expectedNorm, this.vector.getNorm());
+    }
+
+    @Test
+    public void testScale() {
+        final double scaleFactor = 0.5;
+        assertEquals(new Vector(X * scaleFactor, Y * scaleFactor), this.vector.mul(scaleFactor));
     }
 }
