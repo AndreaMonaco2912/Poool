@@ -8,4 +8,12 @@ public class StillBallMover implements BallMover {
     public Vector getNextMove() {
         return null;
     }
+
+    @Override
+    public void signalMovement() {
+    }
+
+    @Override
+    public void signalStop() {
+    }
 }

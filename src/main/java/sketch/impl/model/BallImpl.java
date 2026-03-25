@@ -15,6 +15,8 @@ public class BallImpl implements Ball {
     private Position position;
     private Vector speed;
 
+    private static final double STOP_SPEED = 0.05;
+
     public BallImpl(double radius, double mass, BallMover ballMover) {
         this.radius = radius;
         this.mass = mass;
@@ -31,7 +33,7 @@ public class BallImpl implements Ball {
 
     private void applyMovement() {
         if (Objects.nonNull(ballMover.getNextMove())) {
-            this.speed = ballMover.getNextMove();
+            this.setSpeed(ballMover.getNextMove());
         }
     }
 
@@ -43,9 +45,9 @@ public class BallImpl implements Ball {
         if (speedModule > minimalNonZeroSpeed) {
             double dec = frictionFactor * timeInSeconds;
             double factor = Math.max(0, speedModule - dec) / speedModule;
-            this.speed = this.speed.mul(factor);
+            this.setSpeed(this.speed.mul(factor));
         } else {
-            this.speed = Vector.zero();
+            this.setSpeed(Vector.zero());
         }
     }
 
@@ -57,6 +59,7 @@ public class BallImpl implements Ball {
     @Override
     public void setSpeed(Vector speed) {
         this.speed = speed;
+        checkAndSignalToMover();
     }
 
     @Override
@@ -103,5 +106,13 @@ public class BallImpl implements Ball {
     @Override
     public double getRadius() {
         return this.radius;
+    }
+
+    private void checkAndSignalToMover() {
+        if (this.speed.getNorm() < STOP_SPEED) {
+            this.ballMover.signalStop();
+        } else {
+            this.ballMover.signalMovement();
+        }
     }
 }
