@@ -3145,9 +3145,9 @@ controlflow {
 <ref refid="600bd0b3-26f7-11f1-b14e-e1dc6fffddd4"/>
 <ref refid="fe61e7c5-26f8-11f1-b2b6-e1dc6fffddd4"/>
 <ref refid="12979854-26f9-11f1-bbf0-e1dc6fffddd4"/>
+<ref refid="3503f341-279f-11f1-ba6f-435b96910d15"/>
 <ref refid="4f0eb3a2-26f4-11f1-9b5e-e1dc6fffddd4"/>
 <ref refid="1ac3670f-26f5-11f1-84fe-e1dc6fffddd4"/>
-<ref refid="3503f341-279f-11f1-ba6f-435b96910d15"/>
 </reflist>
 </packagedElement>
 </UML:Package>
@@ -3176,6 +3176,7 @@ controlflow {
 <ref refid="8a72bbf5-26fa-11f1-9bad-e1dc6fffddd4"/>
 <ref refid="12b61592-26fb-11f1-a0fd-e1dc6fffddd4"/>
 <ref refid="01fd6cba-26fd-11f1-9fe7-e1dc6fffddd4"/>
+<ref refid="3edca7e8-2843-11f1-b54f-5d0f6dd5fa98"/>
 <ref refid="a12fdc80-26f0-11f1-b8cf-e1dc6fffddd4"/>
 <ref refid="0b81f396-26f1-11f1-b92d-e1dc6fffddd4"/>
 <ref refid="411924a6-26f1-11f1-92a8-e1dc6fffddd4"/>
@@ -4539,7 +4540,7 @@ Set speed and set position Must be atomical.</val>
 </UML:Class>
 <UML:ClassItem id="50ff3246-26f7-11f1-ab46-e1dc6fffddd4">
 <matrix>
-<val>(1.0, 0.0, 0.0, 1.0, 428.5706176757815, 474.1110717773438)</val>
+<val>(1.0, 0.0, 0.0, 1.0, 428.57061767578125, 474.11107177734374)</val>
 </matrix>
 <top-left>
 <val>(0.0, 0.0)</val>
@@ -4572,7 +4573,7 @@ Set speed and set position Must be atomical.</val>
 </reflist>
 </interfaceRealization>
 <name>
-<val>StillMover</val>
+<val>StillBallMover</val>
 </name>
 <owningPackage>
 <ref refid="ddddc375-26ef-11f1-9431-e1dc6fffddd4"/>
@@ -4593,13 +4594,13 @@ Set speed and set position Must be atomical.</val>
 </UML:Class>
 <UML:ClassItem id="600c0a93-26f7-11f1-9bd1-e1dc6fffddd4">
 <matrix>
-<val>(1.0, 0.0, 0.0, 1.0, 492.0706176757815, 792.3861083984375)</val>
+<val>(1.0, 0.0, 0.0, 1.0, 481.47168207168573, 792.3861083984376)</val>
 </matrix>
 <top-left>
 <val>(0.0, 0.0)</val>
 </top-left>
 <width>
-<val>100.0</val>
+<val>119.0</val>
 </width>
 <height>
 <val>50.0</val>
@@ -4660,7 +4661,7 @@ Set speed and set position Must be atomical.</val>
 <val>(1.0, 0.0, 0.0, 1.0, 575.9153442382812, 638.221435546875)</val>
 </matrix>
 <points>
-<val>[(-33.84472656249977, 43.1646728515625), (-33.84472656249977, 154.1646728515625)]</val>
+<val>[(-33.84472656249977, 43.1646728515625), (-34.94366216659546, 154.1646728515626)]</val>
 </points>
 <head-connection>
 <ref refid="fe621edb-26f8-11f1-9d38-e1dc6fffddd4"/>
@@ -5132,5 +5133,38 @@ without friction there is the same problem: Ball ha a certain direction that is 
 <val>Vector</val>
 </typeValue>
 </UML:Parameter>
+<UML:Comment id="3edca366-2843-11f1-b28c-5d0f6dd5fa98">
+<body>
+<val>It should never happen that the ball starts moving after is taken an input for other reson.
+
+Process for frame should be:
+Input taken -&gt; updateBall&amp;InputFreed -&gt; Collisions.</val>
+</body>
+<presentation>
+<reflist>
+<ref refid="3edca7e8-2843-11f1-b54f-5d0f6dd5fa98"/>
+</reflist>
+</presentation>
+</UML:Comment>
+<UML:CommentItem id="3edca7e8-2843-11f1-b54f-5d0f6dd5fa98">
+<matrix>
+<val>(1.0, 0.0, 0.0, 1.0, 369.98792648315464, 871.8873925781253)</val>
+</matrix>
+<top-left>
+<val>(0.0, 0.0)</val>
+</top-left>
+<width>
+<val>344.1653823852539</val>
+</width>
+<height>
+<val>128.74719726562512</val>
+</height>
+<diagram>
+<ref refid="f6b56593-26ef-11f1-a495-e1dc6fffddd4"/>
+</diagram>
+<subject>
+<ref refid="3edca366-2843-11f1-b28c-5d0f6dd5fa98"/>
+</subject>
+</UML:CommentItem>
 </model>
 </gaphor>
