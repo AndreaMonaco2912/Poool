@@ -5,6 +5,10 @@ public record Vector(double x, double y) {
         return new Vector(0, 0);
     }
 
+    public Vector copy() {
+        return new Vector(x, y);
+    }
+
     public double getNorm() {
         return Math.sqrt(x * x + y * y);
     }

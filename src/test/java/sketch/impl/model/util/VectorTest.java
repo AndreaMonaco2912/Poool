@@ -37,4 +37,9 @@ public class VectorTest {
     public void testZeroVector() {
         assertEquals(new Vector(0, 0), Vector.zero());
     }
+
+    @Test
+    public void testCopy(){
+        assertEquals(this.vector, this.vector.copy());
+    }
 }
