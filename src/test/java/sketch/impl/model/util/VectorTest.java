@@ -32,4 +32,9 @@ public class VectorTest {
         final double scaleFactor = 0.5;
         assertEquals(new Vector(X * scaleFactor, Y * scaleFactor), this.vector.mul(scaleFactor));
     }
+
+    @Test
+    public void testZeroVector() {
+        assertEquals(new Vector(0, 0), Vector.zero());
+    }
 }
