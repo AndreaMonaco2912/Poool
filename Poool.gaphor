@@ -3117,7 +3117,7 @@ controlflow {
 <ref refid="600bd0b3-26f7-11f1-b14e-e1dc6fffddd4"/>
 <ref refid="fe61e7c5-26f8-11f1-b2b6-e1dc6fffddd4"/>
 <ref refid="12979854-26f9-11f1-bbf0-e1dc6fffddd4"/>
-<ref refid="3503f341-279f-11f1-ba6f-435b96910d15"/>
+<ref refid="108aa220-2878-11f1-9b50-27fda8982b7a"/>
 </reflist>
 </ownedType>
 <owningPackage>
@@ -3145,9 +3145,9 @@ controlflow {
 <ref refid="600bd0b3-26f7-11f1-b14e-e1dc6fffddd4"/>
 <ref refid="fe61e7c5-26f8-11f1-b2b6-e1dc6fffddd4"/>
 <ref refid="12979854-26f9-11f1-bbf0-e1dc6fffddd4"/>
-<ref refid="3503f341-279f-11f1-ba6f-435b96910d15"/>
 <ref refid="4f0eb3a2-26f4-11f1-9b5e-e1dc6fffddd4"/>
 <ref refid="1ac3670f-26f5-11f1-84fe-e1dc6fffddd4"/>
+<ref refid="108aa220-2878-11f1-9b50-27fda8982b7a"/>
 </reflist>
 </packagedElement>
 </UML:Package>
@@ -3190,8 +3190,8 @@ controlflow {
 <ref refid="18d9ff7f-26f5-11f1-a1cc-e1dc6fffddd4"/>
 <ref refid="acd24f0e-26f7-11f1-89ee-e1dc6fffddd4"/>
 <ref refid="b673819e-26f7-11f1-93c5-e1dc6fffddd4"/>
-<ref refid="0ab135ee-26f9-11f1-9b84-e1dc6fffddd4"/>
 <ref refid="10493122-26f9-11f1-84f8-e1dc6fffddd4"/>
+<ref refid="0f593c3f-2878-11f1-b8e1-27fda8982b7a"/>
 </reflist>
 </ownedPresentation>
 </UML:ClassDiagram>
@@ -3255,7 +3255,7 @@ controlflow {
 <reflist>
 <ref refid="0e7de7bf-26f1-11f1-ad64-e1dc6fffddd4"/>
 <ref refid="db96af53-26f1-11f1-9594-e1dc6fffddd4"/>
-<ref refid="35052b15-279f-11f1-b670-435b96910d15"/>
+<ref refid="108ad6ae-2878-11f1-9941-27fda8982b7a"/>
 </reflist>
 </ownedAttribute>
 <owningPackage>
@@ -4369,7 +4369,7 @@ controlflow {
 <val>(1.0, 0.0, 0.0, 1.0, 512.2824584960933, 309.22119140625)</val>
 </matrix>
 <points>
-<val>[(195.25074462890655, -33.69434509277352), (70.02256517410297, -33.69434509277352), (70.02256517410297, 64.6590576171875)]</val>
+<val>[(195.25074462890655, -33.69434509277352), (44.22102050781291, -33.69434509277352), (44.22102050781291, 64.6590576171875)]</val>
 </points>
 <head-connection>
 <ref refid="e5278c89-26f1-11f1-bf69-e1dc6fffddd4"/>
@@ -4595,7 +4595,7 @@ Set speed and set position Must be atomical.</val>
 </UML:Class>
 <UML:ClassItem id="600c0a93-26f7-11f1-9bd1-e1dc6fffddd4">
 <matrix>
-<val>(1.0, 0.0, 0.0, 1.0, 481.47168207168573, 792.3861083984376)</val>
+<val>(1.0, 0.0, 0.0, 1.0, 481.47168207168573, 745.3861083984375)</val>
 </matrix>
 <top-left>
 <val>(0.0, 0.0)</val>
@@ -4627,16 +4627,16 @@ Set speed and set position Must be atomical.</val>
 <val>False</val>
 </horizontal>
 <orthogonal>
-<val>False</val>
+<val>1</val>
 </orthogonal>
 <subject>
 <ref refid="189bb671-26f9-11f1-a7b5-e1dc6fffddd4"/>
 </subject>
 <matrix>
-<val>(1.0, 0.0, 0.0, 1.0, 514.0608520507812, 614.5574951171875)</val>
+<val>(1.0, 0.0, 0.0, 1.0, 514.060852050781, 614.5574951171875)</val>
 </matrix>
 <points>
-<val>[(28.009765625000227, -33.17138671875), (28.009765625000227, -74.4464233398437)]</val>
+<val>[(26.91083002090454, -40.3954662633256), (26.91083002090454, -74.44642333984376), (26.91083002090454, -74.44642333984376)]</val>
 </points>
 <head-connection>
 <ref refid="fe621edb-26f8-11f1-9d38-e1dc6fffddd4"/>
@@ -4659,10 +4659,10 @@ Set speed and set position Must be atomical.</val>
 <ref refid="1cf51d6b-26f9-11f1-9fe3-e1dc6fffddd4"/>
 </subject>
 <matrix>
-<val>(1.0, 0.0, 0.0, 1.0, 575.9153442382812, 638.221435546875)</val>
+<val>(1.0, 0.0, 0.0, 1.0, 575.915344238281, 637.7180456090289)</val>
 </matrix>
 <points>
-<val>[(-33.84472656249977, 43.1646728515625), (-34.94366216659546, 154.1646728515626)]</val>
+<val>[(-34.94366216659546, 53.44398324483302), (-34.94366216659546, 107.66806278940862)]</val>
 </points>
 <head-connection>
 <ref refid="fe621edb-26f8-11f1-9d38-e1dc6fffddd4"/>
@@ -4726,6 +4726,8 @@ Set speed and set position Must be atomical.</val>
 <ownedOperation>
 <reflist>
 <ref refid="421dcb37-26fa-11f1-bed8-e1dc6fffddd4"/>
+<ref refid="b5f8fb58-2877-11f1-8dce-27fda8982b7a"/>
+<ref refid="b92bef0a-2877-11f1-ab51-27fda8982b7a"/>
 </reflist>
 </ownedOperation>
 <owningPackage>
@@ -4748,7 +4750,7 @@ Set speed and set position Must be atomical.</val>
 </UML:Interface>
 <UML:InterfaceItem id="fe621edb-26f8-11f1-9d38-e1dc6fffddd4">
 <matrix>
-<val>(1.0, 0.0, 0.0, 1.0, 432.57061767578125, 581.3861083984375)</val>
+<val>(1.0, 0.0, 0.0, 1.0, 432.57061767578125, 574.1620288538619)</val>
 </matrix>
 <top-left>
 <val>(0.0, 0.0)</val>
@@ -4757,7 +4759,7 @@ Set speed and set position Must be atomical.</val>
 <val>219.0</val>
 </width>
 <height>
-<val>100.0</val>
+<val>117.0</val>
 </height>
 <diagram>
 <ref refid="f6b56593-26ef-11f1-a495-e1dc6fffddd4"/>
@@ -4772,38 +4774,6 @@ Set speed and set position Must be atomical.</val>
 <val>0</val>
 </folded>
 </UML:InterfaceItem>
-<UML:AssociationItem id="0ab135ee-26f9-11f1-9b84-e1dc6fffddd4">
-<diagram>
-<ref refid="f6b56593-26ef-11f1-a495-e1dc6fffddd4"/>
-</diagram>
-<head_subject>
-<ref refid="35044150-279f-11f1-8ee3-435b96910d15"/>
-</head_subject>
-<horizontal>
-<val>False</val>
-</horizontal>
-<orthogonal>
-<val>False</val>
-</orthogonal>
-<subject>
-<ref refid="3503f341-279f-11f1-ba6f-435b96910d15"/>
-</subject>
-<tail_subject>
-<ref refid="35052b15-279f-11f1-b670-435b96910d15"/>
-</tail_subject>
-<matrix>
-<val>(1.0, 0.0, 0.0, 1.0, 536.6474633216858, 421.9395446777344)</val>
-</matrix>
-<points>
-<val>[(4.32421875, 2.71990966796875), (5.423154354095573, 52.171527099609364)]</val>
-</points>
-<head-connection>
-<ref refid="989be084-26f0-11f1-8ea2-e1dc6fffddd4"/>
-</head-connection>
-<tail-connection>
-<ref refid="50ff3246-26f7-11f1-ab46-e1dc6fffddd4"/>
-</tail-connection>
-</UML:AssociationItem>
 <UML:AssociationItem id="10493122-26f9-11f1-84f8-e1dc6fffddd4">
 <diagram>
 <ref refid="f6b56593-26ef-11f1-a495-e1dc6fffddd4"/>
@@ -4827,7 +4797,7 @@ Set speed and set position Must be atomical.</val>
 <val>(1.0, 0.0, 0.0, 1.0, 704.6577758789062, 631.3861083984375)</val>
 </matrix>
 <points>
-<val>[(2.87542724609375, 1.275920455424398), (-53.087158203125, 0.0)]</val>
+<val>[(2.87542724609375, 1.275920455424398), (-53.087158203125, 1.275920455424398)]</val>
 </points>
 <head-connection>
 <ref refid="1869119c-26f2-11f1-98f9-e1dc6fffddd4"/>
@@ -5058,58 +5028,6 @@ without friction there is the same problem: Ball ha a certain direction that is 
 <ref refid="01fd684f-26fd-11f1-9986-e1dc6fffddd4"/>
 </subject>
 </UML:CommentItem>
-<UML:Association id="3503f341-279f-11f1-ba6f-435b96910d15">
-<memberEnd>
-<reflist>
-<ref refid="35044150-279f-11f1-8ee3-435b96910d15"/>
-<ref refid="35052b15-279f-11f1-b670-435b96910d15"/>
-</reflist>
-</memberEnd>
-<name>
-<val>Observ</val>
-</name>
-<ownedEnd>
-<reflist>
-<ref refid="35044150-279f-11f1-8ee3-435b96910d15"/>
-</reflist>
-</ownedEnd>
-<owningPackage>
-<ref refid="ddddc375-26ef-11f1-9431-e1dc6fffddd4"/>
-</owningPackage>
-<package>
-<ref refid="ddddc375-26ef-11f1-9431-e1dc6fffddd4"/>
-</package>
-<presentation>
-<reflist>
-<ref refid="0ab135ee-26f9-11f1-9b84-e1dc6fffddd4"/>
-</reflist>
-</presentation>
-</UML:Association>
-<UML:Property id="35044150-279f-11f1-8ee3-435b96910d15">
-<association>
-<ref refid="3503f341-279f-11f1-ba6f-435b96910d15"/>
-</association>
-<owningAssociation>
-<ref refid="3503f341-279f-11f1-ba6f-435b96910d15"/>
-</owningAssociation>
-<type>
-<ref refid="989ba64c-26f0-11f1-b045-e1dc6fffddd4"/>
-</type>
-</UML:Property>
-<UML:Property id="35052b15-279f-11f1-b670-435b96910d15">
-<aggregation>
-<val>shared</val>
-</aggregation>
-<association>
-<ref refid="3503f341-279f-11f1-ba6f-435b96910d15"/>
-</association>
-<structuredClassifier>
-<ref refid="989ba64c-26f0-11f1-b045-e1dc6fffddd4"/>
-</structuredClassifier>
-<type>
-<ref refid="50fef4e7-26f7-11f1-bbfa-e1dc6fffddd4"/>
-</type>
-</UML:Property>
 <UML:Operation id="88ce8daa-279f-11f1-b696-435b96910d15">
 <class_>
 <ref refid="50fef4e7-26f7-11f1-bbfa-e1dc6fffddd4"/>
@@ -5183,16 +5101,16 @@ resolveCollision(A, B) con resolveCollision(A, C).</val>
 </UML:Comment>
 <UML:CommentItem id="1c114f3a-2857-11f1-9b5a-27fda8982b7a">
 <matrix>
-<val>(1.0, 0.0, 0.0, 1.0, 72.29753875732422, 308.59210205078125)</val>
+<val>(1.0, 0.0, 0.0, 1.0, 93.06905822753913, 259.3802490234375)</val>
 </matrix>
 <top-left>
 <val>(0.0, 0.0)</val>
 </top-left>
 <width>
-<val>154.0</val>
+<val>208.15368957519524</val>
 </width>
 <height>
-<val>229.0</val>
+<val>179.01950073242188</val>
 </height>
 <diagram>
 <ref refid="f6b56593-26ef-11f1-a495-e1dc6fffddd4"/>
@@ -5201,5 +5119,99 @@ resolveCollision(A, B) con resolveCollision(A, C).</val>
 <ref refid="1c1149ed-2857-11f1-a67f-27fda8982b7a"/>
 </subject>
 </UML:CommentItem>
+<UML:Operation id="b5f8fb58-2877-11f1-8dce-27fda8982b7a">
+<interface_>
+<ref refid="fe61e7c5-26f8-11f1-b2b6-e1dc6fffddd4"/>
+</interface_>
+<name>
+<val>signalMovement</val>
+</name>
+</UML:Operation>
+<UML:Operation id="b92bef0a-2877-11f1-ab51-27fda8982b7a">
+<interface_>
+<ref refid="fe61e7c5-26f8-11f1-b2b6-e1dc6fffddd4"/>
+</interface_>
+<name>
+<val>signalStop</val>
+</name>
+</UML:Operation>
+<UML:AssociationItem id="0f593c3f-2878-11f1-b8e1-27fda8982b7a">
+<diagram>
+<ref refid="f6b56593-26ef-11f1-a495-e1dc6fffddd4"/>
+</diagram>
+<head_subject>
+<ref refid="108ad042-2878-11f1-9fad-27fda8982b7a"/>
+</head_subject>
+<horizontal>
+<val>False</val>
+</horizontal>
+<subject>
+<ref refid="108aa220-2878-11f1-9b50-27fda8982b7a"/>
+</subject>
+<tail_subject>
+<ref refid="108ad6ae-2878-11f1-9941-27fda8982b7a"/>
+</tail_subject>
+<matrix>
+<val>(1.0, 0.0, 0.0, 1.0, 538.1652221679688, 426.0273742675781)</val>
+</matrix>
+<points>
+<val>[(0.0, -1.367919921875), (0.0, 48.083697509765614)]</val>
+</points>
+<head-connection>
+<ref refid="989be084-26f0-11f1-8ea2-e1dc6fffddd4"/>
+</head-connection>
+<tail-connection>
+<ref refid="50ff3246-26f7-11f1-ab46-e1dc6fffddd4"/>
+</tail-connection>
+</UML:AssociationItem>
+<UML:Association id="108aa220-2878-11f1-9b50-27fda8982b7a">
+<memberEnd>
+<reflist>
+<ref refid="108ad042-2878-11f1-9fad-27fda8982b7a"/>
+<ref refid="108ad6ae-2878-11f1-9941-27fda8982b7a"/>
+</reflist>
+</memberEnd>
+<ownedEnd>
+<reflist>
+<ref refid="108ad042-2878-11f1-9fad-27fda8982b7a"/>
+</reflist>
+</ownedEnd>
+<owningPackage>
+<ref refid="ddddc375-26ef-11f1-9431-e1dc6fffddd4"/>
+</owningPackage>
+<package>
+<ref refid="ddddc375-26ef-11f1-9431-e1dc6fffddd4"/>
+</package>
+<presentation>
+<reflist>
+<ref refid="0f593c3f-2878-11f1-b8e1-27fda8982b7a"/>
+</reflist>
+</presentation>
+</UML:Association>
+<UML:Property id="108ad042-2878-11f1-9fad-27fda8982b7a">
+<association>
+<ref refid="108aa220-2878-11f1-9b50-27fda8982b7a"/>
+</association>
+<owningAssociation>
+<ref refid="108aa220-2878-11f1-9b50-27fda8982b7a"/>
+</owningAssociation>
+<type>
+<ref refid="989ba64c-26f0-11f1-b045-e1dc6fffddd4"/>
+</type>
+</UML:Property>
+<UML:Property id="108ad6ae-2878-11f1-9941-27fda8982b7a">
+<aggregation>
+<val>shared</val>
+</aggregation>
+<association>
+<ref refid="108aa220-2878-11f1-9b50-27fda8982b7a"/>
+</association>
+<structuredClassifier>
+<ref refid="989ba64c-26f0-11f1-b045-e1dc6fffddd4"/>
+</structuredClassifier>
+<type>
+<ref refid="50fef4e7-26f7-11f1-bbfa-e1dc6fffddd4"/>
+</type>
+</UML:Property>
 </model>
 </gaphor>
