@@ -20,18 +20,20 @@ public class ViewImpl extends JFrame implements ModelObserver {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         panel = new VisualiserPanel(w, h);
         getContentPane().add(panel);
+        this.setVisible(true);
     }
 
     @Override
     public void update(Set<BallViewInfo> balls) {
         this.balls = Set.copyOf(balls);
-        try {
+        try { /* this is not the best possible way for benchmark, deltaT is render + model calculations */
             SwingUtilities.invokeAndWait(() ->
                     panel.paintImmediately(0, 0, panel.getWidth(), panel.getHeight())
             );
         } catch (InvocationTargetException | InterruptedException e) {
             System.err.println("Exception on creation of JPanel");
         }
+        /* SwingUtilities.invokeLater(panel::repaint); wouldn't work (model too fast) View should update independently width a timer */
     }
 
     private class VisualiserPanel extends JPanel {

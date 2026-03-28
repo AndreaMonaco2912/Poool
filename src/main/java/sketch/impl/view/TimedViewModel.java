@@ -15,7 +15,7 @@ import java.util.Set;
 public class TimedViewModel implements ViewModel {
 
     private final boolean benchmark;
-    frameTimePrinter printer;
+    private final frameTimePrinter printer;
 
     private final Set<BallViewInfo> balls;
     private final Set<ModelObserver> observers;
@@ -28,8 +28,9 @@ public class TimedViewModel implements ViewModel {
 
     public TimedViewModel(boolean benchmarkPerf) {
         this.benchmark = benchmarkPerf;
-        balls = new HashSet<>();
+        this.balls = new HashSet<>();
         this.observers = new HashSet<>();
+        this.printer = new frameTimePrinter();
     }
 
     @Override
