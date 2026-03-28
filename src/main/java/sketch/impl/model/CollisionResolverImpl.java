@@ -21,8 +21,8 @@ public class CollisionResolverImpl implements CollisionResolver {
             applyBoundaryConstraints(ball);
         }
 
-        for(Ball firstBall: balls){
-            for(Ball secondBall: balls){
+        for (Ball firstBall : balls) {
+            for (Ball secondBall : balls) {
                 resolveCollision(firstBall, secondBall);
             }
         }
@@ -52,52 +52,42 @@ public class CollisionResolverImpl implements CollisionResolver {
         return new Vector(x, -y);
     }
 
-    private void resolveCollision(Ball firstBall, Ball secondBall) {
-        if(firstBall == secondBall){
-            return;
-        }
+    private void resolveCollision(Ball ballA, Ball ballB) {
+        if (ballA == ballB) return;
 
-        final int restitutionFactor = 1;
+        final double distanceX = ballB.getPositionX() - ballA.getPositionX();
+        final double distanceY = ballB.getPositionY() - ballA.getPositionY();
+        final double centerDistance = Math.hypot(distanceX, distanceY);
+        final double contactDistance = ballA.getRadius() + ballB.getRadius();
 
-        double dx   = secondBall.getPositionX() - firstBall.getPositionX();
-        double dy   = secondBall.getPositionY() - firstBall.getPositionY();
-        double dist = Math.hypot(dx, dy);
-        double minD = firstBall.getRadius() + secondBall.getRadius();
+        if (centerDistance >= contactDistance || centerDistance <= 1e-6) return;
 
-        if (dist < minD && dist > 1e-6)  {
+        final double normalX = distanceX / centerDistance;
+        final double normalY = distanceY / centerDistance;
 
-            double nx = dx / dist;
-            double ny = dy / dist;
+        final double overlap = contactDistance - centerDistance;
+        final double totalMass = ballA.getMass() + ballB.getMass();
 
-            double overlap = minD - dist;
-            double totalM  = firstBall.getMass() + secondBall.getMass();
+        final double separationA = overlap * ballB.getMass() / totalMass;
+        final double separationB = overlap * ballA.getMass() / totalMass;
+        ballA.setPosition(new Position(ballA.getPositionX() - normalX * separationA,
+                ballA.getPositionY() - normalY * separationA));
+        ballB.setPosition(new Position(ballB.getPositionX() + normalX * separationB,
+                ballB.getPositionY() + normalY * separationB));
 
-            double a_factor = overlap * (secondBall.getMass() / totalM);
-            double a_deltax = nx * a_factor;
-            double a_deltay = ny * a_factor;
+        final double relativeNormalSpeed = (ballB.getSpeedX() - ballA.getSpeedX()) * normalX
+                + (ballB.getSpeedY() - ballA.getSpeedY()) * normalY;
+        if (relativeNormalSpeed > 0) return;
 
-            firstBall.pos = new P2d(firstBall.getPositionX() - a_deltax, firstBall.getPos().y() - a_deltay);
+        final double restitution = 1.0;
+        final double impulse = -(1 + restitution) * relativeNormalSpeed
+                / (1.0 / ballA.getMass() + 1.0 / ballB.getMass());
 
-            double b_factor = overlap * (firstBall.getMass() / totalM);
-            double b_deltax = nx * b_factor;
-            double b_deltay = ny * b_factor;
-
-            secondBall.pos = new P2d(secondBall.getPositionX() + b_deltax, secondBall.getPos().y() + b_deltay);
-
-            /* Update velocities  */
-
-            /* relative speed along the normal vector*/
-
-            double dvx = secondBall.vel.x() - firstBall.vel.x();
-            double dvy = secondBall.getSpeedY() - firstBall.getSpeedY();
-            double dvn = dvx * nx + dvy * ny;
-
-            if (dvn <= 0) {
-
-                double imp = -(1 + restitutionFactor) * dvn / (1.0/firstBall.getMass() + 1.0/secondBall.getMass());
-                firstBall.vel = new V2d(firstBall.getSpeedX() - (imp / firstBall.getMass()) * nx, firstBall.getSpeedY() - (imp / firstBall.getMass()) * ny);
-                secondBall.vel = new V2d(secondBall.getSpeedX() + (imp / secondBall.getMass()) * nx, secondBall.getSpeedY() + (imp / secondBall.getMass()) * ny);
-            }
-        }
+        final double impulseX = impulse * normalX;
+        final double impulseY = impulse * normalY;
+        ballA.setSpeed(new Vector(ballA.getSpeedX() - impulseX / ballA.getMass(),
+                ballA.getSpeedY() - impulseY / ballA.getMass()));
+        ballB.setSpeed(new Vector(ballB.getSpeedX() + impulseX / ballB.getMass(),
+                ballB.getSpeedY() + impulseY / ballB.getMass()));
     }
 }
