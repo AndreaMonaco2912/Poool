@@ -3148,6 +3148,7 @@ controlflow {
 <ref refid="108aa220-2878-11f1-9b50-27fda8982b7a"/>
 <ref refid="4f0eb3a2-26f4-11f1-9b5e-e1dc6fffddd4"/>
 <ref refid="1ac3670f-26f5-11f1-84fe-e1dc6fffddd4"/>
+<ref refid="f3b21f4b-2a88-11f1-8f77-8db08dab6f59"/>
 </reflist>
 </packagedElement>
 </UML:Package>
@@ -3192,6 +3193,7 @@ controlflow {
 <ref refid="b673819e-26f7-11f1-93c5-e1dc6fffddd4"/>
 <ref refid="10493122-26f9-11f1-84f8-e1dc6fffddd4"/>
 <ref refid="0f593c3f-2878-11f1-b8e1-27fda8982b7a"/>
+<ref refid="f101cf63-2a88-11f1-9829-8db08dab6f59"/>
 </reflist>
 </ownedPresentation>
 </UML:ClassDiagram>
@@ -3630,6 +3632,11 @@ controlflow {
 </supplier>
 </UML:InterfaceRealization>
 <UML:Class id="bdf7bfa9-26f1-11f1-9ddf-e1dc6fffddd4">
+<clientDependency>
+<reflist>
+<ref refid="f3b21f4b-2a88-11f1-8f77-8db08dab6f59"/>
+</reflist>
+</clientDependency>
 <name>
 <val>BoardManager</val>
 </name>
@@ -3966,6 +3973,11 @@ controlflow {
 <ref refid="629bda76-26f2-11f1-a8c4-e1dc6fffddd4"/>
 </reflist>
 </presentation>
+<supplierDependency>
+<reflist>
+<ref refid="f3b21f4b-2a88-11f1-8f77-8db08dab6f59"/>
+</reflist>
+</supplierDependency>
 </UML:Class>
 <UML:ClassItem id="629bda76-26f2-11f1-a8c4-e1dc6fffddd4">
 <matrix>
@@ -5241,5 +5253,54 @@ resolveCollision(A, B) con resolveCollision(A, C).</val>
 <val>int</val>
 </typeValue>
 </UML:Parameter>
+<UML:DependencyItem id="f101cf63-2a88-11f1-9829-8db08dab6f59">
+<auto_dependency>
+<val>0</val>
+</auto_dependency>
+<diagram>
+<ref refid="f6b56593-26ef-11f1-a495-e1dc6fffddd4"/>
+</diagram>
+<horizontal>
+<val>False</val>
+</horizontal>
+<orthogonal>
+<val>False</val>
+</orthogonal>
+<subject>
+<ref refid="f3b21f4b-2a88-11f1-8f77-8db08dab6f59"/>
+</subject>
+<matrix>
+<val>(1.0, 0.0, 0.0, 1.0, 986.3177209739961, 352.8908129882812)</val>
+</matrix>
+<points>
+<val>[(82.1808984375001, -52.55784484863284), (82.1808984375001, -31.73994140625001), (0.0, -31.73994140625001), (0.0, 2.7315841196477777)]</val>
+</points>
+<head-connection>
+<ref refid="629bda76-26f2-11f1-a8c4-e1dc6fffddd4"/>
+</head-connection>
+<tail-connection>
+<ref refid="bdf7f895-26f1-11f1-a33e-e1dc6fffddd4"/>
+</tail-connection>
+</UML:DependencyItem>
+<UML:Usage id="f3b21f4b-2a88-11f1-8f77-8db08dab6f59">
+<client>
+<reflist>
+<ref refid="bdf7bfa9-26f1-11f1-9ddf-e1dc6fffddd4"/>
+</reflist>
+</client>
+<owningPackage>
+<ref refid="ddddc375-26ef-11f1-9431-e1dc6fffddd4"/>
+</owningPackage>
+<presentation>
+<reflist>
+<ref refid="f101cf63-2a88-11f1-9829-8db08dab6f59"/>
+</reflist>
+</presentation>
+<supplier>
+<reflist>
+<ref refid="629b947f-26f2-11f1-ac0e-e1dc6fffddd4"/>
+</reflist>
+</supplier>
+</UML:Usage>
 </model>
 </gaphor>
