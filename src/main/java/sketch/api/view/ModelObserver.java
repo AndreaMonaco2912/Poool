@@ -1,12 +1,18 @@
 package sketch.api.view;
 
+import sketch.impl.view.util.BallViewInfo;
+
+import java.util.Set;
+
 /**
  * A class width a single method that get called by ViewModel
  */
 public interface ModelObserver {
 
     /**
-     * Calls the method update
+     * updates the observer with all the information needed to draw the model
+     *
+     * @param balls graphical details
      */
-    void update();
+    void update(Set<BallViewInfo> balls);
 }

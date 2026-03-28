@@ -14,8 +14,8 @@ public interface ViewModel {
      * Update position of Balls
      *
      * @param normalBalls Ball with normal design
-     * @param playerBall Ball used by the player
-     * @param cpuBall Ball used by the cpu
+     * @param playerBall  Ball used by the player
+     * @param cpuBall     Ball used by the cpu
      */
     void update(Set<Ball> normalBalls, Ball playerBall, Ball cpuBall);
 
@@ -26,5 +26,10 @@ public interface ViewModel {
      */
     Set<BallViewInfo> getBalls();
 
+    /**
+     * add a new object to update on new frame
+     *
+     * @param observer to be updated
+     */
     void addObserver(ModelObserver observer);
 }

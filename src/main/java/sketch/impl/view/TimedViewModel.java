@@ -48,7 +48,7 @@ public class TimedViewModel implements ViewModel {
 
     private void notifyObservers() {
         for(ModelObserver observer: this.observers){
-            observer.update();
+            observer.update(this.balls);
         }
     }
 
