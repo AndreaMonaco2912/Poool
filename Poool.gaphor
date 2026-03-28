@@ -3145,9 +3145,9 @@ controlflow {
 <ref refid="600bd0b3-26f7-11f1-b14e-e1dc6fffddd4"/>
 <ref refid="fe61e7c5-26f8-11f1-b2b6-e1dc6fffddd4"/>
 <ref refid="12979854-26f9-11f1-bbf0-e1dc6fffddd4"/>
+<ref refid="108aa220-2878-11f1-9b50-27fda8982b7a"/>
 <ref refid="4f0eb3a2-26f4-11f1-9b5e-e1dc6fffddd4"/>
 <ref refid="1ac3670f-26f5-11f1-84fe-e1dc6fffddd4"/>
-<ref refid="108aa220-2878-11f1-9b50-27fda8982b7a"/>
 </reflist>
 </packagedElement>
 </UML:Package>
@@ -3631,7 +3631,7 @@ controlflow {
 </UML:InterfaceRealization>
 <UML:Class id="bdf7bfa9-26f1-11f1-9ddf-e1dc6fffddd4">
 <name>
-<val>CollisionManager</val>
+<val>BoardManager</val>
 </name>
 <ownedAttribute>
 <reflist>
@@ -3642,6 +3642,7 @@ controlflow {
 <ownedOperation>
 <reflist>
 <ref refid="47672d9e-26f8-11f1-b304-e1dc6fffddd4"/>
+<ref refid="f11b1a1f-2927-11f1-bce4-c3d9b99a67ed"/>
 </reflist>
 </ownedOperation>
 <owningPackage>
@@ -3658,7 +3659,7 @@ controlflow {
 </UML:Class>
 <UML:ClassItem id="bdf7f895-26f1-11f1-a33e-e1dc6fffddd4">
 <matrix>
-<val>(1.0, 0.0, 0.0, 1.0, 662.8831787109375, 363.7657470703125)</val>
+<val>(1.0, 0.0, 0.0, 1.0, 662.8831787109374, 355.622397107929)</val>
 </matrix>
 <top-left>
 <val>(0.0, 0.0)</val>
@@ -3667,7 +3668,7 @@ controlflow {
 <val>418.0</val>
 </width>
 <height>
-<val>66.0</val>
+<val>83.0</val>
 </height>
 <diagram>
 <ref refid="f6b56593-26ef-11f1-a495-e1dc6fffddd4"/>
@@ -3702,7 +3703,7 @@ controlflow {
 <val>(1.0, 0.0, 0.0, 1.0, 742.7167358398438, 404.5135498046875)</val>
 </matrix>
 <points>
-<val>[(-145.4703369140625, -7.391152696758525), (-79.83355712890625, -7.747802734375)]</val>
+<val>[(-145.4703369140625, -7.391152696758525), (-79.83355712890625, -7.391152696758525)]</val>
 </points>
 <head-connection>
 <ref refid="989be084-26f0-11f1-8ea2-e1dc6fffddd4"/>
@@ -3892,7 +3893,7 @@ controlflow {
 <val>(1.0, 0.0, 0.0, 1.0, 785.1071166992186, 423.1802062988281)</val>
 </matrix>
 <points>
-<val>[(-0.07391357421875, 6.585540771484375), (-0.07391357421875, 140.1657934570312)]</val>
+<val>[(-0.07391357421875, 15.44219080910085), (-0.07391357421875, 140.1657934570312)]</val>
 </points>
 <head-connection>
 <ref refid="bdf7f895-26f1-11f1-a33e-e1dc6fffddd4"/>
@@ -4070,7 +4071,7 @@ controlflow {
 <val>(1.0, 0.0, 0.0, 1.0, 785.6753881835939, 426.6918640136719)</val>
 </matrix>
 <points>
-<val>[(136.4521447753906, 3.073883056640625), (136.45214477539048, 80.41920776367186), (252.22275695047267, 80.41920776367186), (252.22275695047267, 158.81045532226562)]</val>
+<val>[(136.4521447753906, 11.9305330942571), (136.45214477539048, 80.41920776367186), (252.22275695047267, 80.41920776367186), (252.22275695047267, 158.81045532226562)]</val>
 </points>
 <head-connection>
 <ref refid="bdf7f895-26f1-11f1-a33e-e1dc6fffddd4"/>
@@ -4676,7 +4677,7 @@ Set speed and set position Must be atomical.</val>
 <ref refid="bdf7bfa9-26f1-11f1-9ddf-e1dc6fffddd4"/>
 </class_>
 <name>
-<val>CollisionManager</val>
+<val>BoardManager</val>
 </name>
 <ownedParameter>
 <reflist>
@@ -5145,6 +5146,9 @@ resolveCollision(A, B) con resolveCollision(A, C).</val>
 <horizontal>
 <val>False</val>
 </horizontal>
+<orthogonal>
+<val>False</val>
+</orthogonal>
 <subject>
 <ref refid="108aa220-2878-11f1-9b50-27fda8982b7a"/>
 </subject>
@@ -5213,5 +5217,29 @@ resolveCollision(A, B) con resolveCollision(A, C).</val>
 <ref refid="50fef4e7-26f7-11f1-bbfa-e1dc6fffddd4"/>
 </type>
 </UML:Property>
+<UML:Operation id="f11b1a1f-2927-11f1-bce4-c3d9b99a67ed">
+<class_>
+<ref refid="bdf7bfa9-26f1-11f1-9ddf-e1dc6fffddd4"/>
+</class_>
+<name>
+<val>updateBoard</val>
+</name>
+<ownedParameter>
+<reflist>
+<ref refid="f11f2ecc-2927-11f1-b8c9-c3d9b99a67ed"/>
+</reflist>
+</ownedParameter>
+</UML:Operation>
+<UML:Parameter id="f11f2ecc-2927-11f1-b8c9-c3d9b99a67ed">
+<name>
+<val>deltaTime</val>
+</name>
+<ownerFormalParam>
+<ref refid="f11b1a1f-2927-11f1-bce4-c3d9b99a67ed"/>
+</ownerFormalParam>
+<typeValue>
+<val>int</val>
+</typeValue>
+</UML:Parameter>
 </model>
 </gaphor>
