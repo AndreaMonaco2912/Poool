@@ -21,6 +21,12 @@ public interface BoardConfiguration {
     Ball getPlayerBall(BallMover ballMover);
 
     /**
+     * @param ballMover for the CPUControlledBall
+     * @return CPU ball
+     */
+    Ball getCpuBall(BallMover ballMover);
+
+    /**
      * @return all the Still Ball
      */
     Set<Ball> getSmallBalls();

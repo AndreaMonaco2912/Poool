@@ -27,6 +27,11 @@ public class MinimalBoardConfiguration implements BoardConfiguration {
     }
 
     @Override
+    public Ball getCpuBall(BallMover ballMover) {
+        return null;
+    }
+
+    @Override
     public Set<Ball> getSmallBalls() {
         final Ball a = ballFactory.simpleBall();
         final Ball b = ballFactory.simpleBall();
