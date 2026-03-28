@@ -1,13 +1,13 @@
 package sketch.impl.view;
 
 import sketch.api.model.Ball;
+import sketch.api.view.ModelObserver;
 import sketch.api.view.ViewModel;
 import sketch.api.view.util.BallType;
 import sketch.impl.model.util.Position;
 import sketch.impl.view.util.BallViewInfo;
 import sketch.impl.view.util.frameTimePrinter;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -18,6 +18,7 @@ public class TimedViewModel implements ViewModel {
     frameTimePrinter printer;
 
     private final Set<BallViewInfo> balls;
+    private final Set<ModelObserver> observers;
     private BallViewInfo playerBall;
     private BallViewInfo cpuBall;
 
@@ -28,11 +29,7 @@ public class TimedViewModel implements ViewModel {
     public TimedViewModel(boolean benchmarkPerf) {
         this.benchmark = benchmarkPerf;
         balls = new HashSet<>();
-    }
-
-    @Override
-    public void update(Set<Ball> normalBalls, Ball playerBall) {
-        update(normalBalls, playerBall, null);
+        this.observers = new HashSet<>();
     }
 
     @Override
@@ -45,6 +42,13 @@ public class TimedViewModel implements ViewModel {
         this.playerBall = getBallViewInfo(BallType.PLAYER_BALL, playerBall);
         if (Objects.nonNull(cpuBall)) {
             this.cpuBall = getBallViewInfo(BallType.CPU_BALL, cpuBall);
+        }
+        notifyObservers();
+    }
+
+    private void notifyObservers() {
+        for(ModelObserver observer: this.observers){
+            observer.update();
         }
     }
 
@@ -64,5 +68,10 @@ public class TimedViewModel implements ViewModel {
             allBalls.add(cpuBall);
         }
         return allBalls;
+    }
+
+    @Override
+    public void addObserver(ModelObserver observer) {
+        this.observers.add(observer);
     }
 }

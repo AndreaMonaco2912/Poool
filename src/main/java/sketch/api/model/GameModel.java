@@ -13,4 +13,9 @@ public interface GameModel {
      * @param inputVector received
      */
     void receiveInput(Vector inputVector);
+
+    /**
+     * starts infinite gameplayLoop
+     */
+    void startGameLoop();
 }
