@@ -1,0 +1,37 @@
+package sketch.impl.model;
+
+import sketch.api.model.Ball;
+import sketch.api.model.BallFactory;
+import sketch.api.model.BallMover;
+import sketch.api.model.BoardConfiguration;
+import sketch.impl.model.util.Boundary;
+import sketch.impl.model.util.Position;
+import sketch.impl.model.util.Vector;
+
+import java.util.Set;
+
+public class MinimalBoardConfiguration implements BoardConfiguration {
+    private final BallFactory ballFactory = new MinimalBallFactoryImpl();
+
+    @Override
+    public Boundary getBoardBoundary() {
+        return new Boundary(-1.5, -1.0, 1.5, 1.0);
+    }
+
+    @Override
+    public Ball getPlayerBall(BallMover ballMover) {
+        final Ball playerBall = ballFactory.movableBall(ballMover);
+        playerBall.setSpeed(new Vector(0, 0.5));
+        playerBall.setPosition(Position.origin());
+        return playerBall;
+    }
+
+    @Override
+    public Set<Ball> getSmallBalls() {
+        final Ball a = ballFactory.simpleBall();
+        final Ball b = ballFactory.simpleBall();
+        a.setPosition(new Position(0, 0.5));
+        b.setPosition(new Position(0.05, 0.55));
+        return Set.of(a, b);
+    }
+}
