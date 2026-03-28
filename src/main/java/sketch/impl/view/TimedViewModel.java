@@ -33,7 +33,7 @@ public class TimedViewModel implements ViewModel {
     }
 
     @Override
-    public void update(Set<Ball> normalBalls, Ball playerBall, Ball cpuBall) {
+    public synchronized void update(Set<Ball> normalBalls, Ball playerBall, Ball cpuBall) {
         tryRecordFrameTime();
         balls.clear();
         for (Ball ball : normalBalls) {
@@ -61,7 +61,7 @@ public class TimedViewModel implements ViewModel {
     }
 
     @Override
-    public Set<BallViewInfo> getBalls() {
+    public synchronized Set<BallViewInfo> getBalls() {
         final Set<BallViewInfo> allBalls = new HashSet<>(balls);
         allBalls.add(playerBall);
         if (cpuBall != null) {
@@ -71,7 +71,7 @@ public class TimedViewModel implements ViewModel {
     }
 
     @Override
-    public void addObserver(ModelObserver observer) {
+    public synchronized void addObserver(ModelObserver observer) {
         this.observers.add(observer);
     }
 }
