@@ -32,8 +32,9 @@ public class BallImpl implements Ball {
     }
 
     private void applyMovement() {
-        if (Objects.nonNull(ballMover.getNextMove())) {
-            this.setSpeed(ballMover.getNextMove());
+        final Vector nextMove = ballMover.getNextMove();
+        if (Objects.nonNull(nextMove)) {
+            this.setSpeed(nextMove);
         }
     }
 
