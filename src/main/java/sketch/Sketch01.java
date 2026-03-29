@@ -8,15 +8,20 @@ import sketch.impl.view.TimedViewModel;
 import sketch.impl.view.ViewImpl;
 
 import javax.swing.*;
+import java.lang.reflect.InvocationTargetException;
 
 public class Sketch01 {
     static void main() {
-        ViewModel viewModel = new TimedViewModel();
-        GameModel model = new GameModelImpl(viewModel);
-        SwingUtilities.invokeLater(() -> {
-            ModelObserver view = new ViewImpl(1200, 800);
-            viewModel.addObserver(view);
-        });
+        final ViewModel viewModel = new TimedViewModel();
+        final GameModel model = new GameModelImpl(viewModel);
+        try {
+            SwingUtilities.invokeAndWait(() -> {
+                final ModelObserver view = new ViewImpl(1200, 800, viewModel);
+                viewModel.addObserver(view);
+            });
+        } catch (InvocationTargetException | InterruptedException e) {
+            System.err.println("Exception on creation of JPanel");
+        }
 
         model.startGameLoop();
     }

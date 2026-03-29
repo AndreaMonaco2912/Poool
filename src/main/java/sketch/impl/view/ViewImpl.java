@@ -1,6 +1,7 @@
 package sketch.impl.view;
 
 import sketch.api.view.ModelObserver;
+import sketch.api.view.ViewModel;
 import sketch.impl.view.util.BallViewInfo;
 
 import javax.swing.*;
@@ -10,10 +11,12 @@ import java.util.Set;
 
 public class ViewImpl extends JFrame implements ModelObserver {
 
-    private Set<BallViewInfo> balls;
+    private Set<BallViewInfo> balls = Set.of();
     private final VisualiserPanel panel;
+    private final ViewModel model;
 
-    public ViewImpl(int w, int h) {
+    public ViewImpl(int w, int h, ViewModel model) {
+        this.model = model;
         setTitle("Sketch");
         setSize(w, h + 25);
         setResizable(false);
@@ -24,10 +27,10 @@ public class ViewImpl extends JFrame implements ModelObserver {
     }
 
     @Override
-    public void update(Set<BallViewInfo> balls) {
-        this.balls = Set.copyOf(balls);
+    public void update() {
+        this.balls = Set.copyOf(model.getBalls()); /* synchronized is reentrant so it can be called here */
         try { /* this is not the best possible way for benchmark, deltaT is render + model calculations */
-            SwingUtilities.invokeAndWait(() ->
+            SwingUtilities.invokeAndWait(() -> // can't call invoke and wait and inside model.getBalls -> deadLock, no deadlock on invoke later
                     panel.paintImmediately(0, 0, panel.getWidth(), panel.getHeight())
             );
         } catch (InvocationTargetException | InterruptedException e) {

@@ -8,10 +8,12 @@ import sketch.impl.model.util.Boundary;
 import sketch.impl.model.util.Position;
 import sketch.impl.model.util.Vector;
 
+import java.util.HashSet;
 import java.util.Set;
 
-public class MinimalBoardConfiguration implements BoardConfiguration {
-    private final BallFactory ballFactory = new MinimalBallFactory();
+public class MassiveBoardConfiguration implements BoardConfiguration {
+
+    BallFactory ballFactory = new MassiveBallFactory();
 
     @Override
     public Boundary getBoardBoundary() {
@@ -21,8 +23,8 @@ public class MinimalBoardConfiguration implements BoardConfiguration {
     @Override
     public Ball getPlayerBall(BallMover ballMover) {
         final Ball playerBall = ballFactory.movableBall(ballMover);
-        playerBall.setSpeed(new Vector(0, 0.5));
-        playerBall.setPosition(Position.origin());
+        playerBall.setSpeed(Vector.zero());
+        playerBall.setPosition(new Position(0, -0.75));
         return playerBall;
     }
 
@@ -33,18 +35,25 @@ public class MinimalBoardConfiguration implements BoardConfiguration {
 
     @Override
     public Set<Ball> getSmallBalls() {
-        final Ball a = ballFactory.simpleBall();
-        final Ball b = ballFactory.simpleBall();
-        a.setPosition(new Position(0, 0.5));
-        b.setPosition(new Position(0.05, 0.55));
-        return Set.of(a, b);
+        Set<Ball> balls = new HashSet<>();
+
+        for (int row = 0; row < 30; row++) {
+            for (int col = 0; col < 150; col++) {
+                var px = -1.0 + col * 0.015;
+                var py = row * 0.015;
+                var b = ballFactory.simpleBall();
+                b.setPosition(new Position(px, py));
+                balls.add(b);
+            }
+        }
+        return balls;
     }
 
-    private static class MinimalBallFactory implements BallFactory {
+    private static class MassiveBallFactory implements BallFactory {
 
         @Override
         public Ball simpleBall() {
-            final Ball simpleBall = new BallImpl(0.05, 0.75, new StillBallMover());
+            final Ball simpleBall = new BallImpl(0.01, 0.25, new StillBallMover());
             simpleBall.setSpeed(Vector.zero());
             return simpleBall;
         }

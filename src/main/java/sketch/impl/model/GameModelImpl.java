@@ -18,13 +18,15 @@ public class GameModelImpl implements GameModel {
     private long lastUpdate = System.currentTimeMillis();
 
     public GameModelImpl(ViewModel viewModel) {
-        final BoardConfiguration boardConfiguration = new MinimalBoardConfiguration();
+        // final BoardConfiguration boardConfiguration = new MinimalBoardConfiguration();
+        final BoardConfiguration boardConfiguration = new MassiveBoardConfiguration();
         this.playerBallMover = new PlayerBallMoverImpl();
         this.playerBall = boardConfiguration.getPlayerBall(this.playerBallMover);
         this.cpuBall = boardConfiguration.getCpuBall(null);
         this.balls = boardConfiguration.getSmallBalls();
         this.boardManager = new BoardManagerImpl(this.allBalls(), boardConfiguration.getBoardBoundary());
         this.viewModel = viewModel;
+        viewModel.update(this.balls, this.playerBall, this.cpuBall);
     }
 
     private Set<Ball> allBalls() {
