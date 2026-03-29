@@ -1,7 +1,9 @@
 package sketch.impl.view;
 
+import sketch.api.controller.GameController;
 import sketch.api.view.ModelObserver;
 import sketch.api.view.ViewModel;
+import sketch.impl.model.util.Vector;
 import sketch.impl.view.util.BallViewInfo;
 
 import javax.swing.*;
@@ -15,7 +17,7 @@ public class ViewImpl extends JFrame implements ModelObserver {
     private final VisualiserPanel panel;
     private final ViewModel model;
 
-    public ViewImpl(int w, int h, ViewModel model) {
+    public ViewImpl(int w, int h, ViewModel model, GameController controller) {
         this.model = model;
         setTitle("Sketch");
         setSize(w, h + 25);
@@ -23,6 +25,23 @@ public class ViewImpl extends JFrame implements ModelObserver {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         panel = new VisualiserPanel(w, h);
         getContentPane().add(panel);
+        this.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
+            public void keyPressed(java.awt.event.KeyEvent e) {
+                double speed = 0.8;
+                Vector dir = switch (e.getKeyCode()) {
+                    case java.awt.event.KeyEvent.VK_UP    -> new Vector(0, speed);
+                    case java.awt.event.KeyEvent.VK_DOWN   -> new Vector(0, -speed);
+                    case java.awt.event.KeyEvent.VK_LEFT   -> new Vector(-speed, 0);
+                    case java.awt.event.KeyEvent.VK_RIGHT  -> new Vector(speed, 0);
+                    default -> null;
+                };
+                if (dir != null) {
+                    controller.onPlayerInput(dir);
+                }
+            }
+        });
+        requestFocusInWindow();
         this.setVisible(true);
     }
 
@@ -34,7 +53,7 @@ public class ViewImpl extends JFrame implements ModelObserver {
                     panel.paintImmediately(0, 0, panel.getWidth(), panel.getHeight())
             );
         } catch (InvocationTargetException | InterruptedException e) {
-            System.err.println("Exception on creation of JPanel");
+            System.err.println("Exception on creation of JPanel in view");
         }
         /* SwingUtilities.invokeLater(panel::repaint); wouldn't work (model too fast) View should update independently width a timer */
     }

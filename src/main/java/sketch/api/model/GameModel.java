@@ -15,7 +15,9 @@ public interface GameModel {
     void receiveInput(Vector inputVector);
 
     /**
-     * starts infinite gameplayLoop
+     * updates model base on time
+     *
+     * @param elapsed passed from last call
      */
-    void startGameLoop();
+    void updateBoard(long elapsed);
 }

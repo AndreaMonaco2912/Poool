@@ -15,11 +15,10 @@ public class GameModelImpl implements GameModel {
     private final Set<Ball> balls;
     private final ViewModel viewModel;
     private final BoardManager boardManager;
-    private long lastUpdate = System.currentTimeMillis();
 
     public GameModelImpl(ViewModel viewModel) {
-        // final BoardConfiguration boardConfiguration = new MinimalBoardConfiguration();
-        final BoardConfiguration boardConfiguration = new MassiveBoardConfiguration();
+        final BoardConfiguration boardConfiguration = new MinimalBoardConfiguration();
+        // final BoardConfiguration boardConfiguration = new MassiveBoardConfiguration();
         this.playerBallMover = new PlayerBallMoverImpl();
         this.playerBall = boardConfiguration.getPlayerBall(this.playerBallMover);
         this.cpuBall = boardConfiguration.getCpuBall(null);
@@ -40,18 +39,12 @@ public class GameModelImpl implements GameModel {
 
     @Override
     public void receiveInput(Vector inputVector) {
-        this.playerBallMover.addNextMove(inputVector);
+            this.playerBallMover.addNextMove(inputVector);
     }
 
     @Override
-    public void startGameLoop() {
-        while (true) {
-            final long now = System.currentTimeMillis();
-            final long elapsed = now - lastUpdate;
-            this.lastUpdate = now;
-
-            this.boardManager.updateBoard(elapsed);
-            viewModel.update(this.balls, this.playerBall, this.cpuBall);
-        }
+    public void updateBoard(long elapsed){
+        this.boardManager.updateBoard(elapsed);
+        viewModel.update(this.balls, this.playerBall, this.cpuBall);
     }
 }
