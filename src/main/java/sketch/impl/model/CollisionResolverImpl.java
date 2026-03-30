@@ -28,6 +28,16 @@ public class CollisionResolverImpl implements CollisionResolver {
         }
     }
 
+    @Override
+    public boolean isInContact(Ball ballA, Ball ballB) {
+        final double distanceX = ballB.getPositionX() - ballA.getPositionX();
+        final double distanceY = ballB.getPositionY() - ballA.getPositionY();
+        final double centerDistance = Math.hypot(distanceX, distanceY);
+        final double contactDistance = ballA.getRadius() + ballB.getRadius();
+
+        return centerDistance < contactDistance;
+    }
+
     private void applyBoundaryConstraints(Ball ball) {
         if (ball.getPositionX() + ball.getRadius() > bounds.x1()) {
             ball.setPosition(new Position(bounds.x1() - ball.getRadius(), ball.getPositionY()));
@@ -60,7 +70,7 @@ public class CollisionResolverImpl implements CollisionResolver {
         final double centerDistance = Math.hypot(distanceX, distanceY);
         final double contactDistance = ballA.getRadius() + ballB.getRadius();
 
-        if (centerDistance >= contactDistance || centerDistance <= 1e-6) return;
+        if (!isInContact(ballA, ballB) || centerDistance <= 1e-6) return;
 
         final double normalX = distanceX / centerDistance;
         final double normalY = distanceY / centerDistance;
