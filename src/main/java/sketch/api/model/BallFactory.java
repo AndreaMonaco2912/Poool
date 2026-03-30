@@ -1,5 +1,7 @@
 package sketch.api.model;
 
+import javax.swing.text.Position;
+
 public interface BallFactory {
 
     /**
@@ -16,4 +18,12 @@ public interface BallFactory {
      * @return the ball
      */
     Ball movableBall(BallMover mover);
+
+    /**
+     * Creates a Hole
+     *
+     * @param position where the Hole spawns
+     * @return the Hole
+     */
+    Ball simpleHole(Position position);
 }

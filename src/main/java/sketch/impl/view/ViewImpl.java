@@ -99,6 +99,10 @@ public class ViewImpl extends JFrame implements ModelObserver {
                         g2.setStroke(new BasicStroke(2));
                         g2.drawOval(x0 - radius, y0 - radius, radius * 2, radius * 2);
                     }
+                    case HOLE -> {
+                        g2.setColor(Color.BLACK);
+                        g2.drawOval(x0 - radius, y0 - radius, radius * 2, radius * 2);
+                    }
                     default -> {
                         g2.setStroke(new BasicStroke(1));
                         g2.drawOval(x0 - radius, y0 - radius, radius * 2, radius * 2);

@@ -62,5 +62,10 @@ public class MassiveBoardConfiguration implements BoardConfiguration {
         public Ball movableBall(BallMover mover) {
             return new BallImpl(0.06, 0.75, mover);
         }
+
+        @Override
+        public Ball simpleHole(javax.swing.text.Position position) {
+            return null;
+        }
     }
 }
