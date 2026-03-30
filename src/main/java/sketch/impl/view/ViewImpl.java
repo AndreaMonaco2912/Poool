@@ -30,10 +30,10 @@ public class ViewImpl extends JFrame implements ModelObserver {
             public void keyPressed(java.awt.event.KeyEvent e) {
                 double speed = 0.8;
                 Vector dir = switch (e.getKeyCode()) {
-                    case java.awt.event.KeyEvent.VK_UP    -> new Vector(0, speed);
-                    case java.awt.event.KeyEvent.VK_DOWN   -> new Vector(0, -speed);
-                    case java.awt.event.KeyEvent.VK_LEFT   -> new Vector(-speed, 0);
-                    case java.awt.event.KeyEvent.VK_RIGHT  -> new Vector(speed, 0);
+                    case java.awt.event.KeyEvent.VK_UP -> new Vector(0, speed);
+                    case java.awt.event.KeyEvent.VK_DOWN -> new Vector(0, -speed);
+                    case java.awt.event.KeyEvent.VK_LEFT -> new Vector(-speed, 0);
+                    case java.awt.event.KeyEvent.VK_RIGHT -> new Vector(speed, 0);
                     default -> null;
                 };
                 if (dir != null) {
@@ -47,7 +47,7 @@ public class ViewImpl extends JFrame implements ModelObserver {
 
     @Override
     public void update() {
-        this.balls = Set.copyOf(model.getBalls()); /* synchronized is reentrant so it can be called here */
+        this.balls = model.getBalls(); /* synchronized is reentrant so it can be called here */
         try { /* this is not the best possible way for benchmark, deltaT is render + model calculations */
             SwingUtilities.invokeAndWait(() -> // can't call invoke and wait and inside model.getBalls -> deadLock, no deadlock on invoke later
                     panel.paintImmediately(0, 0, panel.getWidth(), panel.getHeight())
@@ -63,6 +63,12 @@ public class ViewImpl extends JFrame implements ModelObserver {
         private final int oy;
         private final int delta;
 
+        private long time = System.currentTimeMillis(); //TODO just debug
+
+        private static final BasicStroke DEFAULT_STROKE = new BasicStroke(1);
+        private static final BasicStroke CPU_STROKE = new BasicStroke(2);
+        private static final BasicStroke PLAYER_STROKE = new BasicStroke(3);
+
         public VisualiserPanel(int w, int h) {
             setSize(w, h + 25);
             ox = w / 2;
@@ -71,19 +77,22 @@ public class ViewImpl extends JFrame implements ModelObserver {
         }
 
         @Override
-        public void paint(Graphics g) {
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+
             Graphics2D g2 = (Graphics2D) g;
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-            g2.clearRect(0, 0, getWidth(), getHeight());
 
             g2.setColor(Color.LIGHT_GRAY);
-            g2.setStroke(new BasicStroke(1));
+            g2.setStroke(DEFAULT_STROKE);
             g2.drawLine(ox, 0, ox, oy * 2);
             g2.drawLine(0, oy, ox * 2, oy);
 
             g2.setColor(Color.BLACK);
+
             Set<BallViewInfo> currentBalls = balls;
+
             for (var b : currentBalls) {
                 var p = b.position();
                 int x0 = (int) (ox + p.x() * delta);
@@ -92,26 +101,26 @@ public class ViewImpl extends JFrame implements ModelObserver {
 
                 switch (b.ballType()) {
                     case PLAYER_BALL -> {
-                        g2.setStroke(new BasicStroke(3));
+                        g2.setStroke(PLAYER_STROKE);
                         g2.drawOval(x0 - radius, y0 - radius, radius * 2, radius * 2);
                     }
                     case CPU_BALL -> {
-                        g2.setStroke(new BasicStroke(2));
+                        g2.setStroke(CPU_STROKE);
                         g2.drawOval(x0 - radius, y0 - radius, radius * 2, radius * 2);
                     }
-                    case HOLE -> {
-                        g2.setColor(Color.BLACK);
-                        g2.drawOval(x0 - radius, y0 - radius, radius * 2, radius * 2);
-                    }
+                    case HOLE -> g2.fillOval(x0 - radius, y0 - radius, radius * 2, radius * 2);
                     default -> {
-                        g2.setStroke(new BasicStroke(1));
+                        g2.setStroke(DEFAULT_STROKE);
                         g2.drawOval(x0 - radius, y0 - radius, radius * 2, radius * 2);
                     }
                 }
             }
 
-            g2.setStroke(new BasicStroke(1));
+            g2.setStroke(DEFAULT_STROKE);
             g2.drawString("Num balls: " + currentBalls.size(), 20, 40);
+            g2.drawString("Real frame time: "+(System.currentTimeMillis() - time), 20, 60);
+
+            time = System.currentTimeMillis();
         }
     }
 }
