@@ -17,15 +17,18 @@ public class CollisionResolverImpl implements CollisionResolver {
     }
 
     @Override
-    public void updateBalls(Set<Ball> balls) {
-        for (Ball ball : balls) {
-            applyBoundaryConstraints(ball);
-        }
-
+    public void collideBalls(Set<Ball> balls) {
         for (Ball firstBall : balls) {
             for (Ball secondBall : balls) {
                 resolveCollision(firstBall, secondBall, HitBy.UNKNOWN);
             }
+        }
+    }
+
+    @Override
+    public void applyBoundsCollision(Set<Ball> balls){
+        for (Ball ball : balls) {
+            applyBoundaryConstraints(ball);
         }
     }
 

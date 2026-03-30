@@ -23,10 +23,11 @@ public class BoardManagerImpl implements BoardManager {
         for (Ball ball : ballManager.allBalls()) {
             ball.updateState(deltaTime);
         }
-        collisionResolver.updateBalls(ballManager.balls());
+        collisionResolver.collideBalls(ballManager.balls());
         if (Objects.nonNull(ballManager.cpuBall()))
             collisionResolver.collideWidth(ballManager.cpuBall(), ballManager.balls(), HitBy.CPU);
         collisionResolver.collideWidth(ballManager.playerBall(), ballManager.balls(), HitBy.PLAYER);
+        collisionResolver.applyBoundsCollision(ballManager.allBalls());
 
         newPlayerPoints = 0;
         newCPUPoints = 0;

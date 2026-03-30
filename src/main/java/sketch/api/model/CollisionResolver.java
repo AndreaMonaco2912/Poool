@@ -12,7 +12,14 @@ public interface CollisionResolver {
      *
      * @param balls to be updated
      */
-    void updateBalls(Set<Ball> balls);
+    void collideBalls(Set<Ball> balls);
+
+    /**
+     * Apply collision with the bounds
+     *
+     * @param balls to collide
+     */
+    void applyBoundsCollision(Set<Ball> balls);
 
     /**
      * Tels whether 2 ball are colliding or not
