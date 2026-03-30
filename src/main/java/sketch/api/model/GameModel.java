@@ -1,5 +1,6 @@
 package sketch.api.model;
 
+import sketch.impl.model.util.Points;
 import sketch.impl.model.util.Vector;
 
 /**
@@ -18,6 +19,12 @@ public interface GameModel {
      * updates model base on time
      *
      * @param elapsed passed from last call
+     * @return status of the game
      */
-    void updateBoard(long elapsed);
+    GameStatus updateBoard(long elapsed);
+
+    /**
+     * @return the points
+     */
+    Points getPoints();
 }

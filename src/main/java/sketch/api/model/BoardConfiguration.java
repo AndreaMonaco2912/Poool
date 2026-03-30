@@ -30,4 +30,9 @@ public interface BoardConfiguration {
      * @return all the Still Ball
      */
     Set<Ball> getSmallBalls();
+
+    /**
+     * @return all the holes
+     */
+    Set<Ball> getHoles();
 }

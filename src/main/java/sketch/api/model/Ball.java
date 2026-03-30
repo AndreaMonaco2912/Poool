@@ -31,6 +31,18 @@ public interface Ball {
     void setSpeed(Vector speed);
 
     /**
+     * set the last hitter of the ball
+     *
+     * @param ball that hit for the last
+     */
+    void setHittingBall(HitBy ball);
+
+    /**
+     * @return the last hitter of the ball
+     */
+    HitBy getHittingBall();
+
+    /**
      * @return the XPosition
      */
     double getPositionX();

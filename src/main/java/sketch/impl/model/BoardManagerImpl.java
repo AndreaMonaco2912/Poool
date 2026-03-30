@@ -1,28 +1,61 @@
 package sketch.impl.model;
 
-import sketch.api.model.Ball;
-import sketch.api.model.BoardManager;
-import sketch.api.model.CollisionResolver;
+import sketch.api.model.*;
 import sketch.impl.model.util.Boundary;
+import sketch.impl.model.util.Points;
 
-import java.util.Set;
+import java.util.Objects;
 
 public class BoardManagerImpl implements BoardManager {
 
-    private final Set<Ball> balls; // maybe can divide balls from playerBall to give e priority
+    private final BallManager ballManager;
     private final CollisionResolver collisionResolver;
+    private int newPlayerPoints;
+    private int newCPUPoints;
 
-
-    public BoardManagerImpl(Set<Ball> balls, Boundary bounds) {
-        this.balls = balls;
+    public BoardManagerImpl(BallManager ballManager, Boundary bounds) {
+        this.ballManager = ballManager;
         this.collisionResolver = new CollisionResolverImpl(bounds);
     }
 
     @Override
-    public void updateBoard(long deltaTime) {
-        for (Ball ball : this.balls) {
+    public GameStatus updateBoard(long deltaTime) {
+        for (Ball ball : ballManager.allBalls()) {
             ball.updateState(deltaTime);
         }
-        this.collisionResolver.updateBalls(this.balls);
+        collisionResolver.updateBalls(ballManager.balls());
+        if (Objects.nonNull(ballManager.cpuBall()))
+            collisionResolver.collideWidth(ballManager.cpuBall(), ballManager.balls(), HitBy.CPU);
+        collisionResolver.collideWidth(ballManager.playerBall(), ballManager.balls(), HitBy.PLAYER);
+
+        newPlayerPoints = 0;
+        newCPUPoints = 0;
+
+        for (Ball hole : ballManager.holes()) {
+            if (Objects.nonNull(ballManager.cpuBall()))
+                if (collisionResolver.isInContact(ballManager.cpuBall(), hole)) return GameStatus.PLAYER_WINS;
+            if (collisionResolver.isInContact(ballManager.playerBall(), hole)) return GameStatus.CPU_WINS;
+            removeBalls(hole);
+        }
+
+        return GameStatus.GAME_CONTINUES;
     }
+
+    @Override
+    public Points getNewPoints() {
+        return new Points(newPlayerPoints, newCPUPoints);
+    }
+
+    private void removeBalls(Ball hole) {
+        for (Ball simpleBall : ballManager.balls()) {
+            if (collisionResolver.isInContact(simpleBall, hole)) {
+                switch (simpleBall.getHittingBall()) {
+                    case CPU -> newCPUPoints++;
+                    case PLAYER -> newPlayerPoints++;
+                }
+                ballManager.balls().remove(simpleBall);
+            }
+        }
+    }
+
 }

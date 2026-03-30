@@ -49,6 +49,11 @@ public class MassiveBoardConfiguration implements BoardConfiguration {
         return balls;
     }
 
+    @Override
+    public Set<Ball> getHoles() {
+        return Set.of();
+    }
+
     private static class MassiveBallFactory implements BallFactory {
 
         @Override

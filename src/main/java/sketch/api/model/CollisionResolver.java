@@ -22,4 +22,13 @@ public interface CollisionResolver {
      * @return true if collision happens
      */
     boolean isInContact(Ball a, Ball b);
+
+    /**
+     * test collision for others Ball width ball a
+     *
+     * @param a       ball to be tested
+     * @param others  balls
+     * @param hitBall type of ball a
+     */
+    void collideWidth(Ball a, Set<Ball> others, HitBy hitBall);
 }

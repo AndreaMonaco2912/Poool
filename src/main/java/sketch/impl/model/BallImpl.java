@@ -2,6 +2,7 @@ package sketch.impl.model;
 
 import sketch.api.model.Ball;
 import sketch.api.model.BallMover;
+import sketch.api.model.HitBy;
 import sketch.impl.model.util.Position;
 import sketch.impl.model.util.Vector;
 
@@ -11,6 +12,7 @@ public class BallImpl implements Ball {
     private final double radius;
     private final double mass;
     private final BallMover ballMover;
+    private HitBy ballHit;
 
     private Position position;
     private Vector speed;
@@ -21,6 +23,7 @@ public class BallImpl implements Ball {
         this.radius = radius;
         this.mass = mass;
         this.ballMover = ballMover;
+        this.ballHit = HitBy.UNKNOWN;
     }
 
     @Override
@@ -61,6 +64,16 @@ public class BallImpl implements Ball {
     public void setSpeed(Vector speed) {
         this.speed = speed;
         checkAndSignalToMover();
+    }
+
+    @Override
+    public void setHittingBall(HitBy ball) {
+        this.ballHit = ball;
+    }
+
+    @Override
+    public HitBy getHittingBall() {
+        return this.ballHit;
     }
 
     @Override

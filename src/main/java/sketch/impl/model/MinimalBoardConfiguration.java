@@ -40,6 +40,11 @@ public class MinimalBoardConfiguration implements BoardConfiguration {
         return Set.of(a, b);
     }
 
+    @Override
+    public Set<Ball> getHoles() {
+        return Set.of();
+    }
+
     private static class MinimalBallFactory implements BallFactory {
 
         @Override

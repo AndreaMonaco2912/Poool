@@ -2,6 +2,7 @@ package sketch.impl.model;
 
 import sketch.api.model.Ball;
 import sketch.api.model.CollisionResolver;
+import sketch.api.model.HitBy;
 import sketch.impl.model.util.Boundary;
 import sketch.impl.model.util.Position;
 import sketch.impl.model.util.Vector;
@@ -23,7 +24,7 @@ public class CollisionResolverImpl implements CollisionResolver {
 
         for (Ball firstBall : balls) {
             for (Ball secondBall : balls) {
-                resolveCollision(firstBall, secondBall);
+                resolveCollision(firstBall, secondBall, HitBy.UNKNOWN);
             }
         }
     }
@@ -36,6 +37,13 @@ public class CollisionResolverImpl implements CollisionResolver {
         final double contactDistance = ballA.getRadius() + ballB.getRadius();
 
         return centerDistance < contactDistance;
+    }
+
+    @Override
+    public void collideWidth(Ball a, Set<Ball> others, HitBy hitBall) {
+        for (Ball b : others) {
+            resolveCollision(a, b, hitBall);
+        }
     }
 
     private void applyBoundaryConstraints(Ball ball) {
@@ -62,7 +70,7 @@ public class CollisionResolverImpl implements CollisionResolver {
         return new Vector(x, -y);
     }
 
-    private void resolveCollision(Ball ballA, Ball ballB) {
+    private void resolveCollision(Ball ballA, Ball ballB, HitBy hitBall) {
         if (ballA == ballB) return;
 
         final double distanceX = ballB.getPositionX() - ballA.getPositionX();
@@ -71,6 +79,9 @@ public class CollisionResolverImpl implements CollisionResolver {
         final double contactDistance = ballA.getRadius() + ballB.getRadius();
 
         if (!isInContact(ballA, ballB) || centerDistance <= 1e-6) return;
+
+        ballA.setHittingBall(hitBall);
+        ballB.setHittingBall(hitBall);
 
         final double normalX = distanceX / centerDistance;
         final double normalY = distanceY / centerDistance;
