@@ -16,6 +16,8 @@ import java.lang.reflect.InvocationTargetException;
 
 public class Sketch01 {
     static void main() {
+        System.setProperty("sun.java2d.opengl", "true");
+
         final GameController controller = new GameControllerImpl();
         final ViewModel viewModel = new TimedViewModel();
         final GameModel model = new GameModelImpl(viewModel);
