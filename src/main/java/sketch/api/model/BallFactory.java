@@ -1,6 +1,7 @@
 package sketch.api.model;
 
-import javax.swing.text.Position;
+
+import sketch.impl.model.util.Position;
 
 public interface BallFactory {
 

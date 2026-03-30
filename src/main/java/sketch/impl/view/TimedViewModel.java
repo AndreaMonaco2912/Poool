@@ -4,6 +4,7 @@ import sketch.api.model.Ball;
 import sketch.api.view.ModelObserver;
 import sketch.api.view.ViewModel;
 import sketch.api.view.util.BallType;
+import sketch.impl.model.util.Points;
 import sketch.impl.model.util.Position;
 import sketch.impl.view.util.BallViewInfo;
 import sketch.impl.view.util.frameTimePrinter;
@@ -21,6 +22,8 @@ public class TimedViewModel implements ViewModel {
     private final Set<ModelObserver> observers;
     private BallViewInfo playerBall;
     private BallViewInfo cpuBall;
+    private Set<BallViewInfo> holes;
+    private Points points;
 
     public TimedViewModel() {
         this(true);
@@ -31,6 +34,7 @@ public class TimedViewModel implements ViewModel {
         this.balls = new HashSet<>();
         this.observers = new HashSet<>();
         this.printer = new frameTimePrinter();
+        this.points = new Points(0, 0);
     }
 
     @Override
@@ -48,7 +52,7 @@ public class TimedViewModel implements ViewModel {
     }
 
     private void notifyObservers() {
-        for(ModelObserver observer: this.observers){
+        for (ModelObserver observer : this.observers) {
             observer.update();
         }
     }
@@ -68,11 +72,32 @@ public class TimedViewModel implements ViewModel {
         if (cpuBall != null) {
             allBalls.add(cpuBall);
         }
+        if (holes != null) {
+            allBalls.addAll(holes);
+        }
         return allBalls;
     }
 
     @Override
     public synchronized void addObserver(ModelObserver observer) {
         this.observers.add(observer);
+    }
+
+    @Override
+    public synchronized void setHoles(Set<Ball> holes) {
+        this.holes = new HashSet<>();
+        for (Ball hole : holes) {
+            this.holes.add(getBallViewInfo(BallType.HOLE, hole));
+        }
+    }
+
+    @Override
+    public synchronized void updatePoints(Points points) {
+        this.points = points;
+    }
+
+    @Override
+    public synchronized Points getPoints() {
+        return this.points;
     }
 }

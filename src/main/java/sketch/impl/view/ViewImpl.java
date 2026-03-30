@@ -3,6 +3,7 @@ package sketch.impl.view;
 import sketch.api.controller.GameController;
 import sketch.api.view.ModelObserver;
 import sketch.api.view.ViewModel;
+import sketch.impl.model.util.Points;
 import sketch.impl.model.util.Vector;
 import sketch.impl.view.util.BallViewInfo;
 
@@ -16,6 +17,7 @@ public class ViewImpl extends JFrame implements ModelObserver {
     private Set<BallViewInfo> balls = Set.of();
     private final VisualiserPanel panel;
     private final ViewModel model;
+    private Points points = new Points(0, 0);
 
     public ViewImpl(int w, int h, ViewModel model, GameController controller) {
         this.model = model;
@@ -47,7 +49,8 @@ public class ViewImpl extends JFrame implements ModelObserver {
 
     @Override
     public void update() {
-        this.balls = model.getBalls(); /* synchronized is reentrant so it can be called here */
+        this.balls = model.getBalls();
+        this.points = model.getPoints();/* synchronized is reentrant so it can be called here */
         try { /* this is not the best possible way for benchmark, deltaT is render + model calculations */
             SwingUtilities.invokeAndWait(() -> // can't call invoke and wait and inside model.getBalls -> deadLock, no deadlock on invoke later
                     panel.paintImmediately(0, 0, panel.getWidth(), panel.getHeight())
@@ -119,6 +122,7 @@ public class ViewImpl extends JFrame implements ModelObserver {
             g2.setStroke(DEFAULT_STROKE);
             g2.drawString("Num balls: " + currentBalls.size(), 20, 40);
             g2.drawString("Real frame time: "+(System.currentTimeMillis() - time), 20, 60);
+            g2.drawString(points.toString(), 20, 80);
 
             time = System.currentTimeMillis();
         }

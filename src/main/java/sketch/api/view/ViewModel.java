@@ -1,6 +1,7 @@
 package sketch.api.view;
 
 import sketch.api.model.Ball;
+import sketch.impl.model.util.Points;
 import sketch.impl.view.util.BallViewInfo;
 
 import java.util.Set;
@@ -20,7 +21,7 @@ public interface ViewModel {
     void update(Set<Ball> normalBalls, Ball playerBall, Ball cpuBall);
 
     /**
-     * gives to the view the information about the balls
+     * gives to the view the information about the balls and holes
      *
      * @return all the balls
      */
@@ -32,4 +33,25 @@ public interface ViewModel {
      * @param observer to be updated
      */
     void addObserver(ModelObserver observer);
+
+    /**
+     * sets Position of every Hole
+     *
+     * @param holes of the game
+     */
+    void setHoles(Set<Ball> holes);
+
+    /**
+     * sets the points
+     *
+     * @param points updated
+     */
+    void updatePoints(Points points);
+
+    /**
+     * gives the points
+     *
+     * @return the real time points
+     */
+    Points getPoints();
 }

@@ -36,12 +36,15 @@ public class MassiveBoardConfiguration implements BoardConfiguration {
     @Override
     public Set<Ball> getSmallBalls() {
         Set<Ball> balls = new HashSet<>();
+        var b = ballFactory.simpleBall();
+        b.setPosition(new Position(0, -0.5));
+        balls.add(b);
 
-        for (int row = 0; row < 30; row++) {
+        for (int row = 0; row < 150; row++) {
             for (int col = 0; col < 150; col++) {
                 var px = -1.0 + col * 0.015;
                 var py = row * 0.015;
-                var b = ballFactory.simpleBall();
+                b = ballFactory.simpleBall();
                 b.setPosition(new Position(px, py));
                 balls.add(b);
             }
@@ -51,7 +54,14 @@ public class MassiveBoardConfiguration implements BoardConfiguration {
 
     @Override
     public Set<Ball> getHoles() {
-        return Set.of();
+        final Ball firstHole = ballFactory.simpleHole(new Position(-1.5, 1.0));
+        final Ball secondHole = ballFactory.simpleHole(new Position(1.5, 1.0));
+        final Ball thirdHole = ballFactory.simpleHole(Position.origin());
+        final Set<Ball> output = new HashSet<>(2);
+        output.add(firstHole);
+        output.add(secondHole);
+        output.add(thirdHole);
+        return output;
     }
 
     private static class MassiveBallFactory implements BallFactory {
@@ -69,8 +79,11 @@ public class MassiveBoardConfiguration implements BoardConfiguration {
         }
 
         @Override
-        public Ball simpleHole(javax.swing.text.Position position) {
-            return null;
+        public Ball simpleHole(Position position) {
+            Ball hole = new BallImpl(0.2, 100, new StillBallMover());
+            hole.setSpeed(Vector.zero());
+            hole.setPosition(position);
+            return hole;
         }
     }
 }

@@ -35,6 +35,7 @@ public class GameModelImpl implements GameModel {
         this.boardManager = new BoardManagerImpl(ballManager, boardConfiguration.getBoardBoundary());
         this.points = new Points(0, 0);
         this.viewModel = viewModel;
+        viewModel.setHoles(holes);
         viewModel.update(this.balls, this.playerBall, this.cpuBall);
     }
 
@@ -49,6 +50,7 @@ public class GameModelImpl implements GameModel {
         GameStatus gameStatus = boardManager.updateBoard(elapsed);
         points = points.add(boardManager.getNewPoints());
         viewModel.update(this.balls, this.playerBall, this.cpuBall);
+        viewModel.updatePoints(points);
         return gameStatus;
     }
 

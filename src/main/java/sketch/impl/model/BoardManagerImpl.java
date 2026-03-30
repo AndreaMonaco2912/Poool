@@ -21,14 +21,9 @@ public class BoardManagerImpl implements BoardManager {
 
     @Override
     public GameStatus updateBoard(long deltaTime) {
-        for (Ball ball : ballManager.allBalls()) {
-            ball.updateState(deltaTime);
-        }
+        moveBalls(deltaTime);
         collisionResolver.collideBalls(ballManager.balls());
-        if (Objects.nonNull(ballManager.cpuBall())){
-            collisionResolver.collideBalls(Set.of(ballManager.cpuBall(), ballManager.playerBall()));
-            collisionResolver.collideWidth(ballManager.cpuBall(), ballManager.balls(), HitBy.CPU);
-        }
+        manageCPUCollision();
         collisionResolver.collideWidth(ballManager.playerBall(), ballManager.balls(), HitBy.PLAYER);
         collisionResolver.applyBoundsCollision(ballManager.allBalls());
 
@@ -45,19 +40,34 @@ public class BoardManagerImpl implements BoardManager {
         return GameStatus.GAME_CONTINUES;
     }
 
+    private void manageCPUCollision() {
+        if (Objects.nonNull(ballManager.cpuBall())){
+            collisionResolver.collideBalls(Set.of(ballManager.cpuBall(), ballManager.playerBall()));
+            collisionResolver.collideWidth(ballManager.cpuBall(), ballManager.balls(), HitBy.CPU);
+        }
+    }
+
+    private void moveBalls(long deltaTime) {
+        for (Ball ball : ballManager.allBalls()) {
+            ball.updateState(deltaTime);
+        }
+    }
+
     @Override
     public Points getNewPoints() {
         return new Points(newPlayerPoints, newCPUPoints);
     }
 
     private void removeBalls(Ball hole) {
-        for (Ball simpleBall : ballManager.balls()) {
+        var iterator = ballManager.balls().iterator();
+        while (iterator.hasNext()) {
+            Ball simpleBall = iterator.next();
             if (collisionResolver.isInContact(simpleBall, hole)) {
                 switch (simpleBall.getHittingBall()) {
                     case CPU -> newCPUPoints++;
                     case PLAYER -> newPlayerPoints++;
                 }
-                ballManager.balls().remove(simpleBall);
+                iterator.remove();
             }
         }
     }
