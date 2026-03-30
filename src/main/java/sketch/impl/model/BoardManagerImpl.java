@@ -5,6 +5,7 @@ import sketch.impl.model.util.Boundary;
 import sketch.impl.model.util.Points;
 
 import java.util.Objects;
+import java.util.Set;
 
 public class BoardManagerImpl implements BoardManager {
 
@@ -24,8 +25,10 @@ public class BoardManagerImpl implements BoardManager {
             ball.updateState(deltaTime);
         }
         collisionResolver.collideBalls(ballManager.balls());
-        if (Objects.nonNull(ballManager.cpuBall()))
+        if (Objects.nonNull(ballManager.cpuBall())){
+            collisionResolver.collideBalls(Set.of(ballManager.cpuBall(), ballManager.playerBall()));
             collisionResolver.collideWidth(ballManager.cpuBall(), ballManager.balls(), HitBy.CPU);
+        }
         collisionResolver.collideWidth(ballManager.playerBall(), ballManager.balls(), HitBy.PLAYER);
         collisionResolver.applyBoundsCollision(ballManager.allBalls());
 
