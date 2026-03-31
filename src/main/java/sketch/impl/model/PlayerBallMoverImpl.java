@@ -6,7 +6,7 @@ import sketch.impl.model.util.Vector;
 import java.util.Objects;
 
 public class PlayerBallMoverImpl implements PlayerBallMover {
-    public static final int MINIMUM_TIME_BEFORE_NEXT_MOVE = 2000;
+    private static final int MINIMUM_TIME_BEFORE_NEXT_MOVE = 2000;
     private Vector nextMove;
     private boolean isMoving;
     private long lastMoveTime;

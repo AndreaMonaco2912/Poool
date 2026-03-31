@@ -20,13 +20,17 @@ public class GameModelImpl implements GameModel {
     private final BoardManager boardManager;
     private final Random rand = new Random();
 
+    private int cpuNumber = 0;
+    private Thread cpuPlayer;
+
+
     private Points points;
 
     public GameModelImpl(ViewModel viewModel) {
         final BoardConfiguration boardConfiguration = new MinimalBoardConfiguration();
         // final BoardConfiguration boardConfiguration = new MassiveBoardConfiguration();
         this.playerBallMover = new PlayerBallMoverImpl();
-        this.cpuBallMover = new PlayerBallMoverImpl();
+        this.cpuBallMover = new CPUBallMoverImpl();
         final Set<Ball> holes = boardConfiguration.getHoles();
         this.playerBall = boardConfiguration.getPlayerBall(this.playerBallMover);
         this.cpuBall = boardConfiguration.getCpuBall(this.cpuBallMover);
@@ -37,6 +41,7 @@ public class GameModelImpl implements GameModel {
         this.viewModel = viewModel;
         viewModel.setHoles(holes);
         viewModel.update(this.balls, this.playerBall, this.cpuBall);
+        if (Objects.nonNull(this.cpuBall)) playCPU();
     }
 
     @Override
@@ -46,7 +51,7 @@ public class GameModelImpl implements GameModel {
 
     @Override
     public GameStatus updateBoard(long elapsed) {
-        if (Objects.nonNull(this.cpuBall)) moveCpu();
+        if (Objects.isNull(cpuBall) && Objects.nonNull(cpuPlayer)) cpuPlayer.interrupt();
         GameStatus gameStatus = boardManager.updateBoard(elapsed);
         points = points.add(boardManager.getNewPoints());
         viewModel.update(this.balls, this.playerBall, this.cpuBall);
@@ -59,11 +64,19 @@ public class GameModelImpl implements GameModel {
         return points;
     }
 
+    private void playCPU(){
+        cpuPlayer = new Thread(() -> {
+            while (true){
+                if (Objects.nonNull(this.cpuBall)) moveCpu();
+            }
+        }, "CPU player" + ++cpuNumber);
+
+        cpuPlayer.start();
+    }
+
     private void moveCpu() {
-        if (this.cpuBall.getSpeedX() + this.cpuBall.getSpeedY() < 0.01) {
-            var angle = rand.nextDouble() * Math.PI * 0.25;
-            var v = new Vector(Math.cos(angle), Math.sin(angle)).mul(1.5);
-            this.cpuBallMover.addNextMove(v);
-        }
+        var angle = rand.nextDouble() * Math.PI * 0.25;
+        var v = new Vector(Math.cos(angle), Math.sin(angle)).mul(1.5);
+        this.cpuBallMover.addNextMove(v);
     }
 }
