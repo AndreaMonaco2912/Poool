@@ -21,20 +21,28 @@ public class BoardManagerImpl implements BoardManager {
 
     @Override
     public GameStatus updateBoard(long deltaTime) {
-        moveBalls(deltaTime);
-        collisionResolver.collideBalls(ballManager.balls());
-        manageCPUCollision();
-        collisionResolver.collideWidth(ballManager.playerBall(), ballManager.balls(), HitBy.PLAYER);
-        collisionResolver.applyBoundsCollision(ballManager.allBalls());
+        moveBalls(deltaTime); // embarrassingly parallel
+        collisionResolver.collideBalls(ballManager.balls()); // complicated
+        manageCPUCollision();// complicated
+        managePlayerCollision();// complicated
+        collisionResolver.applyBoundsCollision(ballManager.allBalls());// embarrassingly parallel
 
+        return calculatePoints();
+    }
+
+    private void managePlayerCollision() {
+        collisionResolver.collideWidth(ballManager.playerBall(), ballManager.balls(), HitBy.PLAYER);
+    }
+
+    private GameStatus calculatePoints() {
         newPlayerPoints = 0;
         newCPUPoints = 0;
 
-        for (Ball hole : ballManager.holes()) {
+        for (Ball hole : ballManager.holes()) {// would not parallelize here
             if (Objects.nonNull(ballManager.cpuBall()))
                 if (collisionResolver.isInContact(ballManager.cpuBall(), hole)) return GameStatus.PLAYER_WINS;
             if (collisionResolver.isInContact(ballManager.playerBall(), hole)) return GameStatus.CPU_WINS;
-            removeBalls(hole);
+            removeBalls(hole);// seams embarrassingly parallel
         }
 
         return GameStatus.GAME_CONTINUES;
@@ -48,6 +56,7 @@ public class BoardManagerImpl implements BoardManager {
     }
 
     private void moveBalls(long deltaTime) {
+        // Pragma OMP parallel for
         for (Ball ball : ballManager.allBalls()) {
             ball.updateState(deltaTime);
         }

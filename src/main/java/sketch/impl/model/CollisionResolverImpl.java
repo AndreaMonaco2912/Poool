@@ -11,9 +11,11 @@ import java.util.Set;
 
 public class CollisionResolverImpl implements CollisionResolver {
     private final Boundary bounds;
+    private final TwoBallCollisionMonitor collisionMonitor;
 
     public CollisionResolverImpl(Boundary bounds) {
         this.bounds = bounds;
+        this.collisionMonitor = new TwoBallCollisionMonitor();
     }
 
     @Override
@@ -76,6 +78,22 @@ public class CollisionResolverImpl implements CollisionResolver {
     private void resolveCollision(Ball ballA, Ball ballB, HitBy hitBall) {
         if (ballA == ballB) return;
 
+        /*
+        synchronized(a) ... synchronized(b) -> philosophers deadlock
+
+        if you put an order is not that good because (assuming ball have an order):
+        synchronized(a) -> a is taken
+            block to get b
+            nobody can use a until b is released, thread holding b is holding potentially (assuming c < a < b) also thread wanting (c a).
+
+         implemented solution resolves both
+         */
+        this.collisionMonitor.acquirePair(ballA, ballB);
+        doResolve(ballA, ballB, hitBall);
+        this.collisionMonitor.releasePair(ballA, ballB);
+    }
+
+    private void doResolve(Ball ballA, Ball ballB, HitBy hitBall) {
         final double distanceX = ballB.getPositionX() - ballA.getPositionX();
         final double distanceY = ballB.getPositionY() - ballA.getPositionY();
         final double centerDistance = Math.hypot(distanceX, distanceY);
