@@ -21,8 +21,8 @@ public class GameModelImpl implements GameModel {
     private final CPUPlayer cpuPlayer;
 
     public GameModelImpl(ViewModel viewModel) {
-        final BoardConfiguration boardConfiguration = new MinimalBoardConfiguration();
-        //final BoardConfiguration boardConfiguration = new MassiveBoardConfiguration();
+        // final BoardConfiguration boardConfiguration = new MinimalBoardConfiguration();
+        final BoardConfiguration boardConfiguration = new MassiveBoardConfiguration();
         this.playerBallMover = new PlayerBallMoverImpl();
         PlayerBallMover cpuBallMover = new CPUBallMoverImpl();
         final Set<Ball> holes = boardConfiguration.getHoles();
