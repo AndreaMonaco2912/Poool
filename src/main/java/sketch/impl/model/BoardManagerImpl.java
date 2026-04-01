@@ -163,20 +163,21 @@ public class BoardManagerImpl implements BoardManager {
             newCPUPoints = 0;
 
             for (Ball hole : ballManager.holes()) {
-                removeBalls(hole);// embarrassingly parallel
+                removeBalls(hole);
             }
         }
 
         private void removeBalls(Ball hole) {
             for (Ball ball : balls) {
-                if (collisionResolver.isInContact(hole, ball))
-                    synchronized (ballManager.balls()){
-                        switch (ball.getHittingBall()) {
-                            case CPU -> newCPUPoints++;
-                            case PLAYER -> newPlayerPoints++;
-                        }
+                if (collisionResolver.isInContact(hole, ball)) {
+                    switch (ball.getHittingBall()) {
+                        case CPU -> newCPUPoints++;
+                        case PLAYER -> newPlayerPoints++;
+                    }
+                    synchronized (ballManager.balls()) {
                         ballManager.balls().remove(ball);
                     }
+                }
             }
         }
 
