@@ -9,6 +9,7 @@ import java.util.Set;
 
 public record BallManager(Ball playerBall, Ball cpuBall, Set<Ball> balls, Set<Ball> holes) {
 
+    //TODO removed unused method
     public Set<Ball> allBalls() {
         final Set<Ball> allBalls = new HashSet<>(balls);
         allBalls.add(playerBall);

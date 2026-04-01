@@ -33,9 +33,10 @@ public interface CollisionResolver {
     /**
      * test collision for others Ball width ball a
      *
-     * @param a       ball to be tested
-     * @param others  balls
-     * @param hitBall type of ball a
+     * @param a                ball to be tested
+     * @param others           balls
+     * @param hitBall          type of ball a
+     * @param permitLostUpdate tels if every part and update on the collision on both the balls are not so important
      */
-    void collideWidth(Ball a, Set<Ball> others, HitBy hitBall);
+    void collideWidth(Ball a, Set<Ball> others, HitBy hitBall, boolean permitLostUpdate);
 }

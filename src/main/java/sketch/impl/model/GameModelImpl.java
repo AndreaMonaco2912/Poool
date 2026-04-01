@@ -51,8 +51,8 @@ public class GameModelImpl implements GameModel {
 
     @Override
     public GameStatus updateBoard(long elapsed) {
-        if (Objects.isNull(cpuBall) && Objects.nonNull(cpuPlayer)) cpuPlayer.interrupt();
         GameStatus gameStatus = boardManager.updateBoard(elapsed);
+        if (gameStatus != GameStatus.GAME_CONTINUES && Objects.nonNull(cpuPlayer)) cpuPlayer.interrupt();
         points = points.add(boardManager.getNewPoints());
         viewModel.update(this.balls, this.playerBall, this.cpuBall);
         viewModel.updatePoints(points);
@@ -64,9 +64,9 @@ public class GameModelImpl implements GameModel {
         return points;
     }
 
-    private void playCPU(){
+    private void playCPU() {
         cpuPlayer = new Thread(() -> {
-            while (true){
+            while (!Thread.currentThread().isInterrupted()) {
                 if (Objects.nonNull(this.cpuBall)) moveCpu();
             }
         }, "CPU player" + ++cpuNumber);
