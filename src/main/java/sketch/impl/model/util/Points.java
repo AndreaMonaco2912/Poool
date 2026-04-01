@@ -7,6 +7,10 @@ public record Points(int player, int cpu) {
         return new Points(player + newPoints.player(), cpu + newPoints.cpu());
     }
 
+    public static Points zero(){
+        return new Points(0, 0);
+    }
+
     @Override
     @NotNull
     public String toString() {
