@@ -40,7 +40,7 @@ public class MassiveBoardConfiguration implements BoardConfiguration {
         b.setPosition(new Position(0, -0.5));
         balls.add(b);
 
-        for (int row = 0; row < 150; row++) {
+        for (int row = 0; row < 30; row++) {
             for (int col = 0; col < 150; col++) {
                 var px = -1.0 + col * 0.015;
                 var py = row * 0.015;
