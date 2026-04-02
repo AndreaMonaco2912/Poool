@@ -43,7 +43,7 @@ public class CollisionResolverImpl implements CollisionResolver {
     }
 
     @Override
-    public void collideWidth(Ball a, Set<Ball> others, HitBy hitBall) {
+    public void collideWith(Ball a, Set<Ball> others, HitBy hitBall) {
         for (Ball b : others) {
             resolveCollision(a, b, hitBall);
         }

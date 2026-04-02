@@ -7,7 +7,7 @@ import sketch.api.view.util.BallType;
 import sketch.impl.model.util.Points;
 import sketch.impl.model.util.Position;
 import sketch.impl.view.util.BallViewInfo;
-import sketch.impl.view.util.frameTimePrinter;
+import sketch.impl.view.util.FrameTimePrinter;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -16,7 +16,7 @@ import java.util.Set;
 public class TimedViewModel implements ViewModel {
 
     private final boolean benchmark;
-    private final frameTimePrinter printer;
+    private final FrameTimePrinter printer;
 
     private final Set<BallViewInfo> balls;
     private final Set<ModelObserver> observers;
@@ -33,7 +33,7 @@ public class TimedViewModel implements ViewModel {
         this.benchmark = benchmarkPerf;
         this.balls = new HashSet<>();
         this.observers = new HashSet<>();
-        this.printer = new frameTimePrinter();
+        this.printer = new FrameTimePrinter();
         this.points = new Points(0, 0);
     }
 

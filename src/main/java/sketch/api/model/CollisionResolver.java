@@ -37,5 +37,5 @@ public interface CollisionResolver {
      * @param others  balls
      * @param hitBall type of ball a
      */
-    void collideWidth(Ball a, Set<Ball> others, HitBy hitBall);
+    void collideWith(Ball a, Set<Ball> others, HitBy hitBall);
 }

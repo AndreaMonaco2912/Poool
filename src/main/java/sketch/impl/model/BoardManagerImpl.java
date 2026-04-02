@@ -24,7 +24,7 @@ public class BoardManagerImpl implements BoardManager {
         moveBalls(deltaTime);
         collisionResolver.collideBalls(ballManager.balls());
         manageCPUCollision();
-        collisionResolver.collideWidth(ballManager.playerBall(), ballManager.balls(), HitBy.PLAYER);
+        collisionResolver.collideWith(ballManager.playerBall(), ballManager.balls(), HitBy.PLAYER);
         collisionResolver.applyBoundsCollision(ballManager.allBalls());
 
         newPlayerPoints = 0;
@@ -43,7 +43,7 @@ public class BoardManagerImpl implements BoardManager {
     private void manageCPUCollision() {
         if (Objects.nonNull(ballManager.cpuBall())){
             collisionResolver.collideBalls(Set.of(ballManager.cpuBall(), ballManager.playerBall()));
-            collisionResolver.collideWidth(ballManager.cpuBall(), ballManager.balls(), HitBy.CPU);
+            collisionResolver.collideWith(ballManager.cpuBall(), ballManager.balls(), HitBy.CPU);
         }
     }
 
