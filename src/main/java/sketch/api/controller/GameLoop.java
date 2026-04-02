@@ -1,4 +1,4 @@
-package sketch.api;
+package sketch.api.controller;
 
 /**
  * It manages the game Loop
