@@ -67,7 +67,7 @@ public class BoardManagerImpl implements BoardManager {
         for (Set<Ball> ballSet : dividedBalls) {
             executor.execute(() -> {
                 for (Ball ball : ballSet) {
-                    collisionResolver.collideWidth(ball, ballManager.balls(), HitBy.UNKNOWN, true);
+                    collisionResolver.collideWith(ball, ballManager.balls(), HitBy.UNKNOWN, true);
                     latch.countDown();
                 }
             });
@@ -99,13 +99,13 @@ public class BoardManagerImpl implements BoardManager {
     }
 
     private void managePlayerCollision() {
-        collisionResolver.collideWidth(ballManager.playerBall(), ballManager.balls(), HitBy.PLAYER, true);
+        collisionResolver.collideWith(ballManager.playerBall(), ballManager.balls(), HitBy.PLAYER, true);
     }
 
     private void manageCPUCollision() {
         if (Objects.nonNull(ballManager.cpuBall())) {
             collisionResolver.collideBalls(Set.of(ballManager.cpuBall(), ballManager.playerBall()));
-            collisionResolver.collideWidth(ballManager.cpuBall(), ballManager.balls(), HitBy.CPU, true);
+            collisionResolver.collideWith(ballManager.cpuBall(), ballManager.balls(), HitBy.CPU, true);
         }
     }
 

@@ -38,5 +38,5 @@ public interface CollisionResolver {
      * @param hitBall          type of ball a
      * @param permitLostUpdate tels if every part and update on the collision on both the balls are not so important
      */
-    void collideWidth(Ball a, Set<Ball> others, HitBy hitBall, boolean permitLostUpdate);
+    void collideWith(Ball a, Set<Ball> others, HitBy hitBall, boolean permitLostUpdate);
 }
