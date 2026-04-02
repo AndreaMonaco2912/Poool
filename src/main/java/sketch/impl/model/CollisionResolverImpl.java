@@ -19,15 +19,6 @@ public class CollisionResolverImpl implements CollisionResolver {
     }
 
     @Override
-    public void collideBalls(Set<Ball> balls) {
-        for (Ball firstBall : balls) {
-            for (Ball secondBall : balls) {
-                resolveCollision(firstBall, secondBall, HitBy.UNKNOWN, true);
-            }
-        }
-    }
-
-    @Override
     public void applyBoundsCollision(Set<Ball> balls) {
         for (Ball ball : balls) {
             applyBoundaryConstraints(ball);
@@ -45,7 +36,7 @@ public class CollisionResolverImpl implements CollisionResolver {
     }
 
     @Override
-    public void collideWidth(Ball a, Set<Ball> others, HitBy hitBall, boolean permitLostUpdate) {
+    public void collideWith(Ball a, Set<Ball> others, HitBy hitBall, boolean permitLostUpdate) {
         for (Ball b : others) {
             resolveCollision(a, b, hitBall, permitLostUpdate);
         }

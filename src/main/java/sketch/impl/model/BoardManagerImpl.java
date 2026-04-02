@@ -47,7 +47,7 @@ public class BoardManagerImpl implements BoardManager {
 
         //bounds collision for player and cpu.
         if (Objects.nonNull(ballManager.cpuBall())) {
-            collisionResolver.collideWidth(
+            collisionResolver.collideWith(
                     ballManager.playerBall(),
                     Set.of(ballManager.cpuBall()),
                     HitBy.UNKNOWN,
@@ -142,17 +142,17 @@ public class BoardManagerImpl implements BoardManager {
 
         private void collideBalls() {
             for (Ball myBall : balls) {
-                collisionResolver.collideWidth(myBall, ballManager.balls(), HitBy.UNKNOWN, true);
+                collisionResolver.collideWith(myBall, ballManager.balls(), HitBy.UNKNOWN, true);
             }
         }
 
         private void collideWithCPU() {
             if (Objects.nonNull(ballManager.cpuBall()))
-                collisionResolver.collideWidth(ballManager.cpuBall(), balls, HitBy.CPU, true);
+                collisionResolver.collideWith(ballManager.cpuBall(), balls, HitBy.CPU, true);
         }
 
         private void collideWithPlayer() {
-            collisionResolver.collideWidth(ballManager.playerBall(), balls, HitBy.PLAYER, true);
+            collisionResolver.collideWith(ballManager.playerBall(), balls, HitBy.PLAYER, true);
         }
 
         private void applyBounds() {

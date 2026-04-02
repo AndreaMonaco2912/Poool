@@ -2,7 +2,7 @@ package sketch.impl.view.util;
 
 import java.util.Arrays;
 
-public class frameTimePrinter {
+public class FrameTimePrinter {
     private static final int BUFFER_SIZE = 128;
 
     private final long[] frameTimes = new long[BUFFER_SIZE];

@@ -8,13 +8,6 @@ import java.util.Set;
 public interface CollisionResolver {
 
     /**
-     * Change Ball position solving every collision
-     *
-     * @param balls to be updated
-     */
-    void collideBalls(Set<Ball> balls);
-
-    /**
      * Apply collision with the bounds
      *
      * @param balls to collide
@@ -38,5 +31,5 @@ public interface CollisionResolver {
      * @param hitBall          type of ball a
      * @param permitLostUpdate tels if every part and update on the collision on both the balls are not so important
      */
-    void collideWidth(Ball a, Set<Ball> others, HitBy hitBall, boolean permitLostUpdate);
+    void collideWith(Ball a, Set<Ball> others, HitBy hitBall, boolean permitLostUpdate);
 }
