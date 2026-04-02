@@ -15,7 +15,6 @@ public class BoardManagerImpl implements BoardManager {
     private final BallManager ballManager;
     private final CollisionResolver collisionResolver;
     private final Executor executor;
-    private final int threadPoolSize;
 
     private final AtomicInteger newPlayerPoints = new AtomicInteger(0);
     private final AtomicInteger newCPUPoints = new AtomicInteger(0);
@@ -24,14 +23,14 @@ public class BoardManagerImpl implements BoardManager {
     public BoardManagerImpl(BallManager ballManager, Boundary bounds) {
         this.ballManager = ballManager;
         int cores = Runtime.getRuntime().availableProcessors();
-        this.threadPoolSize = cores + 1;
+        int threadPoolSize = cores + 1;
         executor = Executors.newFixedThreadPool(threadPoolSize);
         this.collisionResolver = new CollisionResolverImpl(bounds);
     }
 
     @Override
     public GameStatus updateBoard(long deltaTime) {
-        dividedBalls = ballManager.splitSimpleBalls(threadPoolSize);
+        dividedBalls = ballManager.splitSimpleBalls(ballManager.balls().size());
 
         moveBalls(deltaTime);
         collideAllBalls();
