@@ -1,11 +1,11 @@
 package sketch;
 
-import sketch.api.GameLoop;
+import sketch.api.controller.GameLoop;
 import sketch.api.controller.GameController;
 import sketch.api.model.GameModel;
 import sketch.api.view.ModelObserver;
 import sketch.api.view.ViewModel;
-import sketch.impl.GameLoopImpl;
+import sketch.impl.controller.GameLoopImpl;
 import sketch.impl.controller.GameControllerImpl;
 import sketch.impl.model.GameModelImpl;
 import sketch.impl.view.TimedViewModel;

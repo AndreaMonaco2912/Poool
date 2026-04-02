@@ -1,6 +1,6 @@
-package sketch.impl;
+package sketch.impl.controller;
 
-import sketch.api.GameLoop;
+import sketch.api.controller.GameLoop;
 import sketch.api.controller.GameController;
 import sketch.api.model.GameModel;
 import sketch.impl.model.util.Vector;
