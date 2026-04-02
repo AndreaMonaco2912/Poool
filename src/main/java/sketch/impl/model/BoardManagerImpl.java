@@ -51,7 +51,6 @@ public class BoardManagerImpl implements BoardManager {
     }
 
     private void collideAllBalls() {
-        collisionResolver.collideBalls(ballManager.balls());
         final CountDownLatch latch = new CountDownLatch(ballManager.balls().size());
 
         collideSimpleBalls(latch);
