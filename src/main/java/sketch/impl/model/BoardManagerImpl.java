@@ -33,7 +33,7 @@ public class BoardManagerImpl implements BoardManager {
 
     @Override
     public GameStatus updateBoard(long deltaTime) {
-        final List<Set<Ball>> smallBallsDivided = ballManager.splitSimpleBalls(threads.size());
+        final List<List<Ball>> smallBallsDivided = ballManager.splitSimpleBalls(threads.size());
 
         ballManager.playerBall().updateState(deltaTime);
         if (Objects.nonNull(ballManager.cpuBall())) {
@@ -49,15 +49,15 @@ public class BoardManagerImpl implements BoardManager {
         if (Objects.nonNull(ballManager.cpuBall())) {
             collisionResolver.collideWith(
                     ballManager.playerBall(),
-                    Set.of(ballManager.cpuBall()),
+                    List.of(ballManager.cpuBall()),
                     HitBy.UNKNOWN,
                     true
             );
             collisionResolver.applyBoundsCollision(
-                    Set.of(ballManager.playerBall(), ballManager.cpuBall()));
+                    List.of(ballManager.playerBall(), ballManager.cpuBall()));
         } else {
             collisionResolver.applyBoundsCollision(
-                    Set.of(ballManager.playerBall()));
+                    List.of(ballManager.playerBall()));
         }
         return calculatePoints();
     }
@@ -100,7 +100,7 @@ public class BoardManagerImpl implements BoardManager {
         private final MyCyclicBarrier ballBarrier;
         private final CollisionResolver collisionResolver;
         private final MyCyclicBarrier updateBarrier;
-        private Set<Ball> balls;
+        private List<Ball> balls;
         private Long deltaTime = null;
 
         private int newPlayerPoints = 0;
@@ -194,7 +194,7 @@ public class BoardManagerImpl implements BoardManager {
             }
         }
 
-        public synchronized void updateState(long deltaTime, Set<Ball> balls) {
+        public synchronized void updateState(long deltaTime, List<Ball> balls) {
             this.deltaTime = deltaTime;
             this.balls = balls;
             notify();

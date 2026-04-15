@@ -4,7 +4,7 @@ import sketch.api.model.Ball;
 import sketch.impl.model.util.Points;
 import sketch.impl.view.util.BallViewInfo;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * Extracts model information to draw the view
@@ -18,14 +18,14 @@ public interface ViewModel {
      * @param playerBall  Ball used by the player
      * @param cpuBall     Ball used by the cpu
      */
-    void update(Set<Ball> normalBalls, Ball playerBall, Ball cpuBall);
+    void update(List<Ball> normalBalls, Ball playerBall, Ball cpuBall);
 
     /**
      * gives to the view the information about the balls and holes
      *
      * @return all the balls
      */
-    Set<BallViewInfo> getBalls();
+    List<BallViewInfo> getBalls();
 
     /**
      * add a new object to update on new frame
@@ -39,7 +39,7 @@ public interface ViewModel {
      *
      * @param holes of the game
      */
-    void setHoles(Set<Ball> holes);
+    void setHoles(List<Ball> holes);
 
     /**
      * sets the points

@@ -8,8 +8,8 @@ import sketch.impl.model.util.Boundary;
 import sketch.impl.model.util.Position;
 import sketch.impl.model.util.Vector;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MinimalBoardConfiguration implements BoardConfiguration {
     private final BallFactory ballFactory = new MinimalBallFactory();
@@ -36,22 +36,22 @@ public class MinimalBoardConfiguration implements BoardConfiguration {
     }
 
     @Override
-    public Set<Ball> getSmallBalls() {
+    public List<Ball> getSmallBalls() {
         final Ball a = ballFactory.simpleBall();
         final Ball b = ballFactory.simpleBall();
         a.setPosition(new Position(0, 0.5));
         b.setPosition(new Position(0.05, 0.55));
-        final Set<Ball> output = new HashSet<>(2);
+        final List<Ball> output = new ArrayList<>(2);
         output.add(a);
         output.add(b);
         return output;
     }
 
     @Override
-    public Set<Ball> getHoles() {
+    public List<Ball> getHoles() {
         final Ball firstHole = ballFactory.simpleHole(new Position(-1.5, 1.0));
         final Ball secondHole = ballFactory.simpleHole(new Position(1.5, 1.0));
-        final Set<Ball> output = new HashSet<>(2);
+        final List<Ball> output = new ArrayList<>(2);
         output.add(firstHole);
         output.add(secondHole);
         return output;

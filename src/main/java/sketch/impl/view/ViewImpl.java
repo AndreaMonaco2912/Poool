@@ -10,11 +10,11 @@ import sketch.impl.view.util.BallViewInfo;
 import javax.swing.*;
 import java.awt.*;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Set;
+import java.util.List;
 
 public class ViewImpl extends JFrame implements ModelObserver {
 
-    private Set<BallViewInfo> balls = Set.of();
+    private List<BallViewInfo> balls = List.of();
     private final VisualiserPanel panel;
     private final ViewModel model;
     private Points points = new Points(0, 0);
@@ -94,7 +94,7 @@ public class ViewImpl extends JFrame implements ModelObserver {
 
             g2.setColor(Color.BLACK);
 
-            Set<BallViewInfo> currentBalls = balls;
+            List<BallViewInfo> currentBalls = balls;
 
             for (var b : currentBalls) {
                 var p = b.position();

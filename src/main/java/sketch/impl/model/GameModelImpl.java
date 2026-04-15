@@ -5,9 +5,9 @@ import sketch.api.view.ViewModel;
 import sketch.impl.model.util.Points;
 import sketch.impl.model.util.Vector;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Random;
-import java.util.Set;
 
 public class GameModelImpl implements GameModel {
 
@@ -15,7 +15,7 @@ public class GameModelImpl implements GameModel {
     private final PlayerBallMover cpuBallMover;
     private final Ball playerBall;
     private final Ball cpuBall;
-    private final Set<Ball> balls;
+    private final List<Ball> balls;
     private final ViewModel viewModel;
     private final BoardManager boardManager;
     private final Random rand = new Random();
@@ -31,7 +31,7 @@ public class GameModelImpl implements GameModel {
         final BoardConfiguration boardConfiguration = new MassiveBoardConfiguration();
         this.playerBallMover = new PlayerBallMoverImpl();
         this.cpuBallMover = new CPUBallMoverImpl();
-        final Set<Ball> holes = boardConfiguration.getHoles();
+        final List<Ball> holes = boardConfiguration.getHoles();
         this.playerBall = boardConfiguration.getPlayerBall(this.playerBallMover);
         this.cpuBall = boardConfiguration.getCpuBall(this.cpuBallMover);
         this.balls = boardConfiguration.getSmallBalls();

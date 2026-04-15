@@ -7,7 +7,7 @@ import sketch.impl.model.util.Boundary;
 import sketch.impl.model.util.Position;
 import sketch.impl.model.util.Vector;
 
-import java.util.Set;
+import java.util.List;
 
 public class CollisionResolverImpl implements CollisionResolver {
     private final Boundary bounds;
@@ -19,7 +19,7 @@ public class CollisionResolverImpl implements CollisionResolver {
     }
 
     @Override
-    public void applyBoundsCollision(Set<Ball> balls) {
+    public void applyBoundsCollision(List<Ball> balls) {
         for (Ball ball : balls) {
             applyBoundaryConstraints(ball);
         }
@@ -36,7 +36,7 @@ public class CollisionResolverImpl implements CollisionResolver {
     }
 
     @Override
-    public void collideWith(Ball a, Set<Ball> others, HitBy hitBall, boolean permitLostUpdate) {
+    public void collideWith(Ball a, List<Ball> others, HitBy hitBall, boolean permitLostUpdate) {
         for (Ball b : others) {
             resolveCollision(a, b, hitBall, permitLostUpdate);
         }
@@ -72,7 +72,6 @@ public class CollisionResolverImpl implements CollisionResolver {
      * and are resolved in next frames
      */
     private void resolveCollision(Ball ballA, Ball ballB, HitBy hitBall, boolean permitLostUpdate) {
-        if (ballA == ballB) return;
 
         if (permitLostUpdate) {
             doResolve(ballA, ballB, hitBall);
@@ -103,7 +102,7 @@ public class CollisionResolverImpl implements CollisionResolver {
         final double centerDistance = Math.hypot(distanceX, distanceY);
         final double contactDistance = ballA.getRadius() + ballB.getRadius();
 
-        if (!isInContact(ballA, ballB) || centerDistance <= 1e-6) return;
+        if (!(centerDistance < contactDistance)|| centerDistance <= 1e-6) return;
         // LOST UPDATE: isInContact rilegge le posizioni, che potrebbero essere diverse da quelle usate sopra
 
         // NO LOST UPDATE: un altro thread può sovrascrivere hitBall di ballA subito dopo, ma metterà sempre hitBall.Unknown
