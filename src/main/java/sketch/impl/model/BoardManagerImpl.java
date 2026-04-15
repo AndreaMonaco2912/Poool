@@ -50,8 +50,7 @@ public class BoardManagerImpl implements BoardManager {
             collisionResolver.collideWith(
                     ballManager.playerBall(),
                     List.of(ballManager.cpuBall()),
-                    HitBy.UNKNOWN,
-                    true
+                    HitBy.UNKNOWN
             );
             collisionResolver.applyBoundsCollision(
                     List.of(ballManager.playerBall(), ballManager.cpuBall()));
@@ -142,17 +141,17 @@ public class BoardManagerImpl implements BoardManager {
 
         private void collideBalls() {
             for (Ball myBall : balls) {
-                collisionResolver.collideWith(myBall, ballManager.balls(), HitBy.UNKNOWN, true);
+                collisionResolver.collideWith(myBall, ballManager.balls(), HitBy.UNKNOWN);
             }
         }
 
         private void collideWithCPU() {
             if (Objects.nonNull(ballManager.cpuBall()))
-                collisionResolver.collideWith(ballManager.cpuBall(), balls, HitBy.CPU, true);
+                collisionResolver.collideWith(ballManager.cpuBall(), balls, HitBy.CPU);
         }
 
         private void collideWithPlayer() {
-            collisionResolver.collideWith(ballManager.playerBall(), balls, HitBy.PLAYER, true);
+            collisionResolver.collideWith(ballManager.playerBall(), balls, HitBy.PLAYER);
         }
 
         private void applyBounds() {

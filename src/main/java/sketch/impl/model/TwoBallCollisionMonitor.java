@@ -2,11 +2,11 @@ package sketch.impl.model;
 
 import sketch.api.model.Ball;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TwoBallCollisionMonitor {
-    private final Set<Ball> lockedBalls = new HashSet<>();
+    private final List<Ball> lockedBalls = new ArrayList<>();
 
     public synchronized void acquirePair(Ball a, Ball b) {
         while (lockedBalls.contains(a) || lockedBalls.contains(b)) {
