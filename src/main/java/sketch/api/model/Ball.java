@@ -71,4 +71,9 @@ public interface Ball {
      * @return the Ball radius
      */
     double getRadius();
+
+    /**
+     * @return the ballId
+     */
+    int getId();
 }

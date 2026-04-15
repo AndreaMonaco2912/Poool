@@ -9,6 +9,7 @@ import sketch.impl.model.util.Vector;
 import java.util.Objects;
 
 public class BallImpl implements Ball {
+
     private final double radius;
     private final double mass;
     private final BallMover ballMover;
@@ -17,13 +18,16 @@ public class BallImpl implements Ball {
     private Position position;
     private Vector speed;
 
+    private final int id;
+
     private static final double STOP_SPEED = 0.05;
 
-    public BallImpl(double radius, double mass, BallMover ballMover) {
+    public BallImpl(double radius, double mass, BallMover ballMover, int id) {
         this.radius = radius;
         this.mass = mass;
         this.ballMover = ballMover;
         this.ballHit = HitBy.UNKNOWN;
+        this.id = id;
     }
 
     @Override
@@ -104,6 +108,11 @@ public class BallImpl implements Ball {
     @Override
     public double getRadius() {
         return this.radius;
+    }
+
+    @Override
+    public int getId() {
+        return this.id;
     }
 
     private void checkAndSignalToMover() {

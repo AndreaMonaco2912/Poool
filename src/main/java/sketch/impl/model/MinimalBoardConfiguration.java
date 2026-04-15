@@ -59,21 +59,23 @@ public class MinimalBoardConfiguration implements BoardConfiguration {
 
     private static class MinimalBallFactory implements BallFactory {
 
+        int id = 0;
+
         @Override
         public Ball simpleBall() {
-            final Ball simpleBall = new BallImpl(0.05, 0.75, new StillBallMover());
+            final Ball simpleBall = new BallImpl(0.05, 0.75, new StillBallMover(), id++);
             simpleBall.setSpeed(Vector.zero());
             return simpleBall;
         }
 
         @Override
         public Ball movableBall(BallMover mover) {
-            return new BallImpl(0.06, 0.75, mover);
+            return new BallImpl(0.06, 0.75, mover, id++);
         }
 
         @Override
         public Ball simpleHole(Position position) {
-            Ball hole = new BallImpl(0.2, 100, new StillBallMover());
+            Ball hole = new BallImpl(0.2, 100, new StillBallMover(), id++);
             hole.setSpeed(Vector.zero());
             hole.setPosition(position);
             return hole;
