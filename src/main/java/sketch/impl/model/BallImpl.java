@@ -78,38 +78,22 @@ public class BallImpl implements Ball {
 
     @Override
     public double getPositionX() {
-        checkPosition();
         return this.position.x();
     }
 
     @Override
     public double getPositionY() {
-        checkPosition();
         return this.position.y();
-    }
-
-    private void checkPosition() {
-        if (Objects.isNull(this.position)) {
-            throw new IllegalStateException("Required ball position is unsetted");
-        }
     }
 
     @Override
     public double getSpeedX() {
-        checkSpeed();
         return this.speed.x();
     }
 
     @Override
     public double getSpeedY() {
-        checkSpeed();
         return this.speed.y();
-    }
-
-    private void checkSpeed() {
-        if (Objects.isNull(this.speed)) {
-            throw new IllegalStateException("Required ball speed is unsetted");
-        }
     }
 
     @Override

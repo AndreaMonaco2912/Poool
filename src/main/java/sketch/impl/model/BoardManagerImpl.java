@@ -4,8 +4,8 @@ import sketch.api.model.*;
 import sketch.impl.model.util.Boundary;
 import sketch.impl.model.util.Points;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 public class BoardManagerImpl implements BoardManager {
 
@@ -13,6 +13,7 @@ public class BoardManagerImpl implements BoardManager {
     private final CollisionResolver collisionResolver;
     private int newPlayerPoints;
     private int newCPUPoints;
+
 
     public BoardManagerImpl(BallManager ballManager, Boundary bounds) {
         this.ballManager = ballManager;
@@ -22,6 +23,7 @@ public class BoardManagerImpl implements BoardManager {
     @Override
     public GameStatus updateBoard(long deltaTime) {
         moveBalls(deltaTime);
+
         collisionResolver.collideBalls(ballManager.balls());
         manageCPUCollision();
         collisionResolver.collideWith(ballManager.playerBall(), ballManager.balls(), HitBy.PLAYER);
@@ -42,7 +44,7 @@ public class BoardManagerImpl implements BoardManager {
 
     private void manageCPUCollision() {
         if (Objects.nonNull(ballManager.cpuBall())){
-            collisionResolver.collideBalls(Set.of(ballManager.cpuBall(), ballManager.playerBall()));
+            collisionResolver.collideBalls(List.of(ballManager.cpuBall(), ballManager.playerBall()));
             collisionResolver.collideWith(ballManager.cpuBall(), ballManager.balls(), HitBy.CPU);
         }
     }

@@ -7,26 +7,25 @@ import sketch.impl.model.util.Boundary;
 import sketch.impl.model.util.Position;
 import sketch.impl.model.util.Vector;
 
-import java.util.Set;
+import java.util.List;
 
 public class CollisionResolverImpl implements CollisionResolver {
     private final Boundary bounds;
-
     public CollisionResolverImpl(Boundary bounds) {
         this.bounds = bounds;
     }
 
     @Override
-    public void collideBalls(Set<Ball> balls) {
-        for (Ball firstBall : balls) {
-            for (Ball secondBall : balls) {
-                resolveCollision(firstBall, secondBall, HitBy.UNKNOWN);
+    public void collideBalls(List<Ball> balls) {
+        for (int i = 0; i < balls.size() - 1; i++) {
+            for (int j = i + 1; j < balls.size(); j++) {
+                resolveCollision(balls.get(i), balls.get(j), HitBy.UNKNOWN);
             }
         }
     }
 
     @Override
-    public void applyBoundsCollision(Set<Ball> balls){
+    public void applyBoundsCollision(List<Ball> balls){
         for (Ball ball : balls) {
             applyBoundaryConstraints(ball);
         }
@@ -43,7 +42,7 @@ public class CollisionResolverImpl implements CollisionResolver {
     }
 
     @Override
-    public void collideWith(Ball a, Set<Ball> others, HitBy hitBall) {
+    public void collideWith(Ball a, List<Ball> others, HitBy hitBall) {
         for (Ball b : others) {
             resolveCollision(a, b, hitBall);
         }
@@ -74,14 +73,13 @@ public class CollisionResolverImpl implements CollisionResolver {
     }
 
     private void resolveCollision(Ball ballA, Ball ballB, HitBy hitBall) {
-        if (ballA == ballB) return;
 
         final double distanceX = ballB.getPositionX() - ballA.getPositionX();
         final double distanceY = ballB.getPositionY() - ballA.getPositionY();
         final double centerDistance = Math.hypot(distanceX, distanceY);
         final double contactDistance = ballA.getRadius() + ballB.getRadius();
 
-        if (!isInContact(ballA, ballB) || centerDistance <= 1e-6) return;
+        if (!(centerDistance < contactDistance && centerDistance > 1e-6)) return;
 
         ballA.setHittingBall(hitBall);
         ballB.setHittingBall(hitBall);

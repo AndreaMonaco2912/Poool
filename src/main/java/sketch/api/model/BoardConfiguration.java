@@ -2,7 +2,7 @@ package sketch.api.model;
 
 import sketch.impl.model.util.Boundary;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * Produce BoardConfigurations for the game
@@ -29,10 +29,10 @@ public interface BoardConfiguration {
     /**
      * @return all the Still Ball
      */
-    Set<Ball> getSmallBalls();
+    List<Ball> getSmallBalls();
 
     /**
      * @return all the holes
      */
-    Set<Ball> getHoles();
+    List<Ball> getHoles();
 }

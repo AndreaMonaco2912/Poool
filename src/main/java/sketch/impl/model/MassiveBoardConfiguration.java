@@ -8,8 +8,8 @@ import sketch.impl.model.util.Boundary;
 import sketch.impl.model.util.Position;
 import sketch.impl.model.util.Vector;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MassiveBoardConfiguration implements BoardConfiguration {
 
@@ -34,8 +34,8 @@ public class MassiveBoardConfiguration implements BoardConfiguration {
     }
 
     @Override
-    public Set<Ball> getSmallBalls() {
-        Set<Ball> balls = new HashSet<>();
+    public List<Ball> getSmallBalls() {
+        List<Ball> balls = new ArrayList<>();
         var b = ballFactory.simpleBall();
         b.setPosition(new Position(0, -0.5));
         balls.add(b);
@@ -53,11 +53,11 @@ public class MassiveBoardConfiguration implements BoardConfiguration {
     }
 
     @Override
-    public Set<Ball> getHoles() {
+    public List<Ball> getHoles() {
         final Ball firstHole = ballFactory.simpleHole(new Position(-1.5, 1.0));
         final Ball secondHole = ballFactory.simpleHole(new Position(1.5, 1.0));
         final Ball thirdHole = ballFactory.simpleHole(Position.origin());
-        final Set<Ball> output = new HashSet<>(2);
+        final List<Ball> output = new ArrayList<>(2);
         output.add(firstHole);
         output.add(secondHole);
         output.add(thirdHole);

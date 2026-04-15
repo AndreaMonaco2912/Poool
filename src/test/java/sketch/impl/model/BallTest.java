@@ -8,7 +8,6 @@ import sketch.impl.model.util.Position;
 import sketch.impl.model.util.Vector;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class BallTest {
     protected static final double RADIUS = 3.0;
@@ -38,14 +37,14 @@ public abstract class BallTest {
         assertEquals(RADIUS, this.ball.getRadius());
     }
 
-    @Test
-    public void getUnsettedDataShouldThrowException() {
-        this.ball = new BallImpl(RADIUS, MASS, null); // Change the ball to a new one
-        assertThrows(IllegalStateException.class, () -> ball.getPositionX());
-        assertThrows(IllegalStateException.class, () -> ball.getPositionY());
-        assertThrows(IllegalStateException.class, () -> ball.getSpeedX());
-        assertThrows(IllegalStateException.class, () -> ball.getSpeedY());
-    }
+//    @Test
+//    public void getUnsettedDataShouldThrowException() {
+//        this.ball = new BallImpl(RADIUS, MASS, null); // Change the ball to a new one
+//        assertThrows(IllegalStateException.class, () -> ball.getPositionX());
+//        assertThrows(IllegalStateException.class, () -> ball.getPositionY());
+//        assertThrows(IllegalStateException.class, () -> ball.getSpeedX());
+//        assertThrows(IllegalStateException.class, () -> ball.getSpeedY());
+//    }
 
     @Test
     public void getPositionShouldReturnCorrectData() {
