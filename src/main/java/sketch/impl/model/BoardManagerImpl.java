@@ -18,7 +18,7 @@ public class BoardManagerImpl implements BoardManager {
 
     private final AtomicInteger newPlayerPoints = new AtomicInteger(0);
     private final AtomicInteger newCPUPoints = new AtomicInteger(0);
-    private List<Set<Ball>> dividedBalls;
+    private List<List<Ball>> dividedBalls;
 
     public BoardManagerImpl(BallManager ballManager, Boundary bounds) {
         this.ballManager = ballManager;
@@ -64,27 +64,27 @@ public class BoardManagerImpl implements BoardManager {
     }
 
     private void collideSimpleBalls(CountDownLatch latch) {
-        for (Set<Ball> ballSet : dividedBalls) {
-            executor.execute(() -> {
-                for (Ball ball : ballSet) {
-                    collisionResolver.collideWith(ball, ballManager.balls(), HitBy.UNKNOWN, true);
+        for (List<Ball> ballList : dividedBalls) {
+            for (Ball ball : ballList) {
+                executor.execute(() -> {
+                    collisionResolver.collideWith(ball, ballManager.balls(), HitBy.UNKNOWN);
                     latch.countDown();
-                }
-            });
+                });
+            }
         }
     }
 
     private void applyBounds() {
         final CountDownLatch latch = new CountDownLatch(dividedBalls.size());
-        for (Set<Ball> ballSet : dividedBalls) {
+        for (List<Ball> ballList : dividedBalls) {
             executor.execute(() -> {
-                collisionResolver.applyBoundsCollision(ballSet);
+                collisionResolver.applyBoundsCollision(ballList);
                 latch.countDown();
             });
         }
 
 
-        Set<Ball> balls = new HashSet<>();
+        List<Ball> balls = new ArrayList<>();
         balls.add(ballManager.playerBall());
         if (Objects.nonNull(ballManager.cpuBall())) {
             balls.add(ballManager.cpuBall());
@@ -99,20 +99,20 @@ public class BoardManagerImpl implements BoardManager {
     }
 
     private void managePlayerCollision() {
-        collisionResolver.collideWith(ballManager.playerBall(), ballManager.balls(), HitBy.PLAYER, true);
+        collisionResolver.collideWith(ballManager.playerBall(), ballManager.balls(), HitBy.PLAYER);
     }
 
     private void manageCPUCollision() {
         if (Objects.nonNull(ballManager.cpuBall())) {
-            collisionResolver.collideBalls(Set.of(ballManager.cpuBall(), ballManager.playerBall()));
-            collisionResolver.collideWith(ballManager.cpuBall(), ballManager.balls(), HitBy.CPU, true);
+            collisionResolver.collideBalls(List.of(ballManager.cpuBall(), ballManager.playerBall()));
+            collisionResolver.collideWith(ballManager.cpuBall(), ballManager.balls(), HitBy.CPU);
         }
     }
 
     private void moveBalls(long deltaTime) {
         CountDownLatch latch = new CountDownLatch(ballManager.balls().size());
 
-        for (Set<Ball> ballGroup : dividedBalls) {
+        for (List<Ball> ballGroup : dividedBalls) {
             executor.execute(() -> {
                 for (Ball ball : ballGroup) {
                     ball.updateState(deltaTime);
@@ -139,9 +139,9 @@ public class BoardManagerImpl implements BoardManager {
     private void removeBalls(Ball hole) {
         CountDownLatch latch = new CountDownLatch(dividedBalls.size());
 
-        for (Set<Ball> ballSet : dividedBalls) {
+        for (List<Ball> ballList : dividedBalls) {
             executor.execute(() -> {
-                for (Ball ball : ballSet) {
+                for (Ball ball : ballList) {
                     if (collisionResolver.isInContact(hole, ball)) {
                         switch (ball.getHittingBall()) {
                             case CPU -> newCPUPoints.incrementAndGet();

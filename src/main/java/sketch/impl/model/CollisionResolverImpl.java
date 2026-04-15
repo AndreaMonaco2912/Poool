@@ -7,7 +7,7 @@ import sketch.impl.model.util.Boundary;
 import sketch.impl.model.util.Position;
 import sketch.impl.model.util.Vector;
 
-import java.util.Set;
+import java.util.List;
 
 public class CollisionResolverImpl implements CollisionResolver {
     private final Boundary bounds;
@@ -19,7 +19,7 @@ public class CollisionResolverImpl implements CollisionResolver {
     }
 
     @Override
-    public void collideBalls(Set<Ball> balls) {
+    public void collideBalls(List<Ball> balls) {
         for (Ball firstBall : balls) {
             for (Ball secondBall : balls) {
                 resolveCollision(firstBall, secondBall, HitBy.UNKNOWN, true);
@@ -28,7 +28,7 @@ public class CollisionResolverImpl implements CollisionResolver {
     }
 
     @Override
-    public void applyBoundsCollision(Set<Ball> balls) {
+    public void applyBoundsCollision(List<Ball> balls) {
         for (Ball ball : balls) {
             applyBoundaryConstraints(ball);
         }
@@ -45,9 +45,9 @@ public class CollisionResolverImpl implements CollisionResolver {
     }
 
     @Override
-    public void collideWith(Ball a, Set<Ball> others, HitBy hitBall, boolean permitLostUpdate) {
+    public void collideWith(Ball a, List<Ball> others, HitBy hitBall) {
         for (Ball b : others) {
-            resolveCollision(a, b, hitBall, permitLostUpdate);
+            resolveCollision(a, b, hitBall, true);
         }
     }
 

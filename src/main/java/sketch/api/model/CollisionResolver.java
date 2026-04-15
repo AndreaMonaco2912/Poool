@@ -1,6 +1,6 @@
 package sketch.api.model;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * Collision resolver solves collision between balls and boundary modifying ball position and movement vectors
@@ -12,14 +12,14 @@ public interface CollisionResolver {
      *
      * @param balls to be updated
      */
-    void collideBalls(Set<Ball> balls);
+    void collideBalls(List<Ball> balls);
 
     /**
      * Apply collision with the bounds
      *
      * @param balls to collide
      */
-    void applyBoundsCollision(Set<Ball> balls);
+    void applyBoundsCollision(List<Ball> balls);
 
     /**
      * Tels whether 2 ball are colliding or not
@@ -36,7 +36,6 @@ public interface CollisionResolver {
      * @param a                ball to be tested
      * @param others           balls
      * @param hitBall          type of ball a
-     * @param permitLostUpdate tels if every part and update on the collision on both the balls are not so important
      */
-    void collideWith(Ball a, Set<Ball> others, HitBy hitBall, boolean permitLostUpdate);
+    void collideWith(Ball a, List<Ball> others, HitBy hitBall);
 }

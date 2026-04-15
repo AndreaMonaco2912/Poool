@@ -9,20 +9,18 @@ import sketch.impl.model.util.Position;
 import sketch.impl.view.util.BallViewInfo;
 import sketch.impl.view.util.FrameTimePrinter;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 public class TimedViewModel implements ViewModel {
 
     private final boolean benchmark;
     private final FrameTimePrinter printer;
 
-    private final Set<BallViewInfo> balls;
+    private final List<BallViewInfo> balls;
     private final Set<ModelObserver> observers;
     private BallViewInfo playerBall;
     private BallViewInfo cpuBall;
-    private Set<BallViewInfo> holes;
+    private List<BallViewInfo> holes;
     private Points points;
 
     public TimedViewModel() {
@@ -31,14 +29,14 @@ public class TimedViewModel implements ViewModel {
 
     public TimedViewModel(boolean benchmarkPerf) {
         this.benchmark = benchmarkPerf;
-        this.balls = new HashSet<>();
+        this.balls = new ArrayList<>();
         this.observers = new HashSet<>();
         this.printer = new FrameTimePrinter();
         this.points = new Points(0, 0);
     }
 
     @Override
-    public synchronized void update(Set<Ball> normalBalls, Ball playerBall, Ball cpuBall) {
+    public synchronized void update(List<Ball> normalBalls, Ball playerBall, Ball cpuBall) {
         tryRecordFrameTime();
         balls.clear();
         for (Ball ball : normalBalls) {
@@ -66,8 +64,8 @@ public class TimedViewModel implements ViewModel {
     }
 
     @Override
-    public synchronized Set<BallViewInfo> getBalls() {
-        final Set<BallViewInfo> allBalls = new HashSet<>(balls);
+    public synchronized List<BallViewInfo> getBalls() {
+        final List<BallViewInfo> allBalls = new ArrayList<>(balls);
         allBalls.add(playerBall);
         if (cpuBall != null) {
             allBalls.add(cpuBall);
@@ -84,8 +82,8 @@ public class TimedViewModel implements ViewModel {
     }
 
     @Override
-    public synchronized void setHoles(Set<Ball> holes) {
-        this.holes = new HashSet<>();
+    public synchronized void setHoles(List<Ball> holes) {
+        this.holes = new ArrayList<>();
         for (Ball hole : holes) {
             this.holes.add(getBallViewInfo(BallType.HOLE, hole));
         }
