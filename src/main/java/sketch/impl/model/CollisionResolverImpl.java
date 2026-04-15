@@ -32,7 +32,7 @@ public class CollisionResolverImpl implements CollisionResolver {
         final double centerDistance = Math.hypot(distanceX, distanceY);
         final double contactDistance = ballA.getRadius() + ballB.getRadius();
 
-        return centerDistance < contactDistance;
+        return centerDistance < contactDistance && !(centerDistance <= 1e-6);
     }
 
     @Override
@@ -72,15 +72,17 @@ public class CollisionResolverImpl implements CollisionResolver {
      * and are resolved in next frames
      */
     private void resolveCollision(Ball ballA, Ball ballB, HitBy hitBall) {
+        if (ballA.getId() >= ballB.getId()) return;
+
+        if (!(isInContact(ballA, ballB))) return;
+
+        this.collisionMonitor.acquirePair(ballA, ballB);
+
         final double distanceX = ballB.getPositionX() - ballA.getPositionX();
-        // LOST UPDATE: tra questa lettura e la precedente, un altro thread può aver modificato la posizione di ballA o ballB
         final double distanceY = ballB.getPositionY() - ballA.getPositionY();
         final double centerDistance = Math.hypot(distanceX, distanceY);
         final double contactDistance = ballA.getRadius() + ballB.getRadius();
 
-        if (!(centerDistance < contactDistance)|| centerDistance <= 1e-6) return;
-
-        this.collisionMonitor.acquirePair(ballA, ballB);
         doResolve(ballA, ballB, hitBall, distanceX, centerDistance, distanceY, contactDistance);
         this.collisionMonitor.releasePair(ballA, ballB);
     }
