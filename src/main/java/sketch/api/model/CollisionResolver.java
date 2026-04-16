@@ -38,4 +38,13 @@ public interface CollisionResolver {
      * @param hitBall          type of ball a
      */
     void collideWith(Ball a, List<Ball> others, HitBy hitBall);
+
+    /**
+     * resolves collisions between 2 balls
+     *
+     * @param ballA first Ball
+     * @param ballB second Ball
+     * @param hitBall type of hit
+     */
+    void resolveCollision(Ball ballA, Ball ballB, HitBy hitBall);
 }

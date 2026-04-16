@@ -15,6 +15,7 @@ public class BoardManagerImpl implements BoardManager {
     private final BallManager ballManager;
     private final CollisionResolver collisionResolver;
     private final Executor executor;
+    private final int threadPoolSize;
 
     private final AtomicInteger newPlayerPoints = new AtomicInteger(0);
     private final AtomicInteger newCPUPoints = new AtomicInteger(0);
@@ -23,14 +24,14 @@ public class BoardManagerImpl implements BoardManager {
     public BoardManagerImpl(BallManager ballManager, Boundary bounds) {
         this.ballManager = ballManager;
         int cores = Runtime.getRuntime().availableProcessors();
-        int threadPoolSize = cores + 1;
+        threadPoolSize = cores + 1;
         executor = Executors.newFixedThreadPool(threadPoolSize);
         this.collisionResolver = new CollisionResolverImpl(bounds);
     }
 
     @Override
     public GameStatus updateBoard(long deltaTime) {
-        dividedBalls = ballManager.splitSimpleBalls(ballManager.balls().size());
+        dividedBalls = ballManager.splitSimpleBalls(threadPoolSize);
 
         moveBalls(deltaTime);
         collideAllBalls();
@@ -50,7 +51,7 @@ public class BoardManagerImpl implements BoardManager {
     }
 
     private void collideAllBalls() {
-        final CountDownLatch latch = new CountDownLatch(ballManager.balls().size());
+        CountDownLatch latch = new CountDownLatch(threadPoolSize);
 
         collideSimpleBalls(latch);
         manageCPUCollision();
@@ -64,13 +65,19 @@ public class BoardManagerImpl implements BoardManager {
     }
 
     private void collideSimpleBalls(CountDownLatch latch) {
-        for (List<Ball> ballList : dividedBalls) {
-            for (Ball ball : ballList) {
-                executor.execute(() -> {
-                    collisionResolver.collideWith(ball, ballManager.balls(), HitBy.UNKNOWN);
-                    latch.countDown();
-                });
-            }
+        List<Ball> balls = ballManager.balls();
+        int n = balls.size();
+
+        for (int t = 0; t < threadPoolSize; t++) {
+            final int taskId = t;
+            executor.execute(() -> {
+                for (int i = taskId; i < n - 1; i += threadPoolSize) {
+                    for (int j = i + 1; j < n; j++) {
+                        collisionResolver.resolveCollision(balls.get(i), balls.get(j), HitBy.UNKNOWN);
+                    }
+                }
+                latch.countDown();
+            });
         }
     }
 

@@ -22,7 +22,7 @@ public class CollisionResolverImpl implements CollisionResolver {
     public void collideBalls(List<Ball> balls) {
         for (Ball firstBall : balls) {
             for (Ball secondBall : balls) {
-                resolveCollision(firstBall, secondBall, HitBy.UNKNOWN, true);
+                resolveCollision(firstBall, secondBall, HitBy.UNKNOWN);
             }
         }
     }
@@ -41,13 +41,13 @@ public class CollisionResolverImpl implements CollisionResolver {
         final double centerDistance = Math.hypot(distanceX, distanceY);
         final double contactDistance = ballA.getRadius() + ballB.getRadius();
 
-        return centerDistance < contactDistance;
+        return centerDistance < contactDistance && !(centerDistance <= 1e-6);
     }
 
     @Override
     public void collideWith(Ball a, List<Ball> others, HitBy hitBall) {
         for (Ball b : others) {
-            resolveCollision(a, b, hitBall, true);
+            resolveCollision(a, b, hitBall);
         }
     }
 
@@ -80,42 +80,21 @@ public class CollisionResolverImpl implements CollisionResolver {
      * are considered minimals because they actually happens only in very specific situations
      * and are resolved in next frames
      */
-    private void resolveCollision(Ball ballA, Ball ballB, HitBy hitBall, boolean permitLostUpdate) {
-        if (ballA == ballB) return;
+    public void resolveCollision(Ball ballA, Ball ballB, HitBy hitBall) {
+        if (!(isInContact(ballA, ballB))) return;
 
-        if (permitLostUpdate) {
-            doResolve(ballA, ballB, hitBall);
-        } else {
+        this.collisionMonitor.acquirePair(ballA, ballB);
 
-
-        /*
-        synchronized(a) ... synchronized(b) -> philosophers deadlock
-
-        if you put an order is not that good because (assuming ball have an order):
-        synchronized(a) -> a is taken
-            block to get b
-            nobody can use a until b is released, thread holding b is holding potentially (assuming c < a < b) also thread wanting (c a).
-
-         implemented solution resolves both
-         */
-            this.collisionMonitor.acquirePair(ballA, ballB);
-            doResolve(ballA, ballB, hitBall);
-            this.collisionMonitor.releasePair(ballA, ballB);
-        }
-    }
-
-    //TODO remove all comments
-    private void doResolve(Ball ballA, Ball ballB, HitBy hitBall) {
         final double distanceX = ballB.getPositionX() - ballA.getPositionX();
-        // LOST UPDATE: tra questa lettura e la precedente, un altro thread può aver modificato ballA o ballB
         final double distanceY = ballB.getPositionY() - ballA.getPositionY();
         final double centerDistance = Math.hypot(distanceX, distanceY);
         final double contactDistance = ballA.getRadius() + ballB.getRadius();
 
-        if (!isInContact(ballA, ballB) || centerDistance <= 1e-6) return;
-        // LOST UPDATE: isInContact rilegge le posizioni, che potrebbero essere diverse da quelle usate sopra
+        doResolve(ballA, ballB, hitBall, distanceX, centerDistance, distanceY, contactDistance);
+        this.collisionMonitor.releasePair(ballA, ballB);
+    }
 
-        // NO LOST UPDATE: un altro thread può sovrascrivere hitBall di ballA subito dopo, ma metterà sempre hitBall.Unknown
+    private static void doResolve(Ball ballA, Ball ballB, HitBy hitBall, double distanceX, double centerDistance, double distanceY, double contactDistance) {
         ballA.setHittingBall(hitBall);
         ballB.setHittingBall(hitBall);
 
@@ -129,15 +108,11 @@ public class CollisionResolverImpl implements CollisionResolver {
         final double separationB = overlap * ballA.getMass() / totalMass;
         ballA.setPosition(new Position(ballA.getPositionX() - normalX * separationA,
                 ballA.getPositionY() - normalY * separationA));
-        // LOST UPDATE: getPositionX/Y potrebbe restituire valori già modificati da un altro thread,
-        // e la posizione scritta sovrascrive quella che un altro thread ha appena impostato
         ballB.setPosition(new Position(ballB.getPositionX() + normalX * separationB,
                 ballB.getPositionY() + normalY * separationB));
-        // LOST UPDATE: stesso problema per ballB
 
         final double relativeNormalSpeed = (ballB.getSpeedX() - ballA.getSpeedX()) * normalX
                 + (ballB.getSpeedY() - ballA.getSpeedY()) * normalY;
-        // LOST UPDATE: le speed lette qui potrebbero essere state modificate da un altro thread dopo il setPosition
         if (relativeNormalSpeed > 0) return;
 
         final double restitution = 1.0;
@@ -148,10 +123,7 @@ public class CollisionResolverImpl implements CollisionResolver {
         final double impulseY = impulse * normalY;
         ballA.setSpeed(new Vector(ballA.getSpeedX() - impulseX / ballA.getMass(),
                 ballA.getSpeedY() - impulseY / ballA.getMass()));
-        // LOST UPDATE: getSpeedX/Y potrebbe restituire valori diversi da quelli usati per calcolare relativeNormalSpeed,
-        // e la speed scritta sovrascrive quella che un altro thread ha appena impostato
         ballB.setSpeed(new Vector(ballB.getSpeedX() + impulseX / ballB.getMass(),
                 ballB.getSpeedY() + impulseY / ballB.getMass()));
-        // LOST UPDATE: stesso problema per ballB
     }
 }
